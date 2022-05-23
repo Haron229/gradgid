@@ -1,0 +1,24 @@
+#index-title div {
+  display: flex;
+  justify-content:center;
+  top: 10rem;
+    width: 100%;
+}
+#index-title div > div {
+  display: flex;
+  justify-content:center;
+  width: 60%;
+}
+
+#index-title div > div > form > div {
+  margin-top: 1rem;
+}
+
+label {
+  margin-right: 1rem;
+}
+button {
+  margin: 2rem;
+  position: relative;
+  align-content: center;
+}

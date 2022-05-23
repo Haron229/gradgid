@@ -1,0 +1,478 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+@import url('../fonts/RozenDecor.ttf');
+
+@font-face {
+  font-family: RozenDecor;
+  font-weight: 600;
+  src: url("../fonts/RozenDecor.ttf");
+}
+
+body{
+  font-family: 'Comfortaa', cursive !important;
+  color: #272727 !important;
+  background-color: #8ac7e924 !important;
+}
+.menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  background: 	#fff;
+  height: 10rem;
+}
+
+p{
+font-family: 'Comfortaa', cursive;
+}
+a{
+  text-decoration: none;
+}
+
+
+.carousel-inner{
+  height: 30rem;
+}
+
+
+#hero {
+	height: 650px;
+	overflow: hidden;
+	position: relative;
+}
+.layer {
+	background-position: bottom center;
+	background-size: auto;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 800px;
+	/*position: fixed;*/
+	z-index: -1;
+}
+#hero,
+.layer {
+	/*min-height: 800px;*/
+}
+
+.layer-bg-1 {
+	background-image: url("../imgs/legend/kel_fon.png");
+  background-size: 800px 600px;
+    height: 800px;
+    width: 600px;
+
+}
+.layer-1 {
+	background-image: url("../imgs/legend/kel_pop.png");
+	background-position: left bottom;
+  background-size: 800px 600px;
+    height: 800px;
+    width: 600px;
+
+    position: relative;
+    top: -600px;
+    z-index: 1;
+}
+.layer-2 {
+	background-image: url("../imgs/legend/kel_bes.png");
+ background-size: 500px 500px;
+    height: 500px;
+    width: 500px;
+
+
+    position: relative;
+    top: -900px;
+    z-index: 1;
+    right: -100px;
+}
+
+
+.layer-bg-2 {
+	background-image: url("../imgs/legend/sky.png");
+  background-size: 800px 600px;
+    height: 800px;
+    width: 600px;
+
+}
+.layer-3 {
+	background-image: url("../imgs/legend/sky_pop.png");
+	background-position: left bottom;
+  background-size: 800px 600px;
+    height: 800px;
+    width: 600px;
+
+    position: relative;
+    top: -600px;
+    z-index: 1;
+}
+.layer-4 {
+	background-image: url("../imgs/legend/sky_bird.png");
+ background-size: 500px 500px;
+    height: 500px;
+    width: 500px;
+
+
+    position: relative;
+    top: -900px;
+    z-index: 1;
+    right: -100px;
+}
+
+
+.layer-bg-3 {
+	background-image: url("../imgs/legend/pin_fon.png");
+  background-size: 800px 600px;
+    height: 800px;
+    width: 600px;
+
+}
+.layer-5 {
+	background-image: url("../imgs/legend/pin_pop.png");
+	background-position: left bottom;
+  background-size: 600px 445px;
+    height: 800px;
+    width: 600px;
+
+    position: relative;
+    top: -460px;
+    right: 90px;
+    z-index: 1;
+}
+.layer-6 {
+	background-image: url("../imgs/legend/pin_foot.png");
+ background-size: 500px 500px;
+    height: 500px;
+    width: 500px;
+    position: relative;
+    z-index: 1;
+    right: -100px;
+    top: -70px;
+
+}
+
+
+.layer-bg-4 {
+	background-image: url("../imgs/legend/zloy_fon.png");
+  background-size: 800px 600px;
+    height: 800px;
+    width: 600px;
+
+}
+.layer-7 {
+	background-image: url("../imgs/legend/zloy_bes.png");
+	background-position: left bottom;
+  background-size: 600px 445px;
+    height: 800px;
+    width: 600px;
+
+    position: relative;
+    top: -460px;
+    right: 90px;
+    z-index: 1;
+}
+.layer-8 {
+	background-image: url("../imgs/legend/zloy_fire.png");
+  background-size: 300px 300px;
+  height: 500px;
+  width: 500px;
+  position: relative;
+  z-index: 1;
+  right: 60px;
+  top: -100px;
+}
+
+
+.layer-bg-5 {
+	background-image: url("../imgs/legend/fon_chuch.png");
+  background-size: 600px 400px;
+    height: 800px;
+    width: 600px;
+
+}
+.layer-9 {
+	background-image: url("../imgs/legend/pop_chuch.png");
+	background-position: left bottom;
+  background-size: 600px 445px;
+    height: 800px;
+    width: 600px;
+
+    position: relative;
+    top: -460px;
+    right: 90px;
+    z-index: 1;
+}
+
+
+/* #hero {
+	height: 800px;
+	overflow: hidden;
+	position: relative;
+}
+.layer {
+	background-position: bottom center;
+	background-size: auto;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 800px;
+	position: fixed;
+	z-index: -1;
+}
+#hero,
+.layer {
+	min-height: 800px;
+}
+
+.layer-bg {
+	background-image: url("../imgs/legend/kel_fon.png");
+}
+.layer-1 {
+	background-image: url("../imgs/legend/kel_pop.png");
+	background-position: left bottom;
+}
+.layer-2 {
+	background-image: url("../imgs/legend/kel_bes.png");
+} */
+
+.info{
+
+}
+
+.title1{
+  font-family: 'Comfortaa', cursive;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #645380;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.title:hover{
+  text-decoration: none;
+  color: #CE0040;
+}
+
+.mini_title{
+
+    font-family: 'Comfortaa', cursive;
+
+    font-size: 14px;
+    text-transform: uppercase;
+    /*background: linear-gradient(180deg, transparent 55%, #0084ce75 45%);*/
+    /*-webkit-background-clip: text;*/
+    color: #645380;
+    display: table;
+    font-weight: bold;
+
+}
+
+.flex_menu{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo_menu2{
+  margin-top: 20px;
+}
+
+.el_menu{
+  /*width: 100px;*/
+  padding: 10px;
+  margin: 20px;
+  /*border: solid 0px #000;*/
+  /*background: #9e777b;*/
+  border-radius: 10px;
+}
+
+.el_a:hover{
+  text-decoration: underline;
+}
+
+.btn-sign-in{
+  border: solid 0px #000 !important;
+  background: #9e777b !important;
+  border-radius: 10px !important;
+  color: #fff !important;
+}
+
+.btn-sign-in:hover{
+  background: #865358 !important;
+}
+
+.logo{
+  margin-top: 10px;
+  width: 100px;
+}
+
+.tags{
+  border: 0px black solid;
+  border-radius: 10px;
+  padding: 7px;
+  text-decoration: none;
+  color: #fff;
+  margin: 10px 10px 10px 0;
+}
+.tags:hover{
+  color: #fff;
+}
+
+.A{
+  background-color: #10689A;
+}
+.B{
+    background-color: #10689A;
+}
+.C{
+  background-color: #10689A;
+}
+
+.el_a{
+  text-decoration: none;
+  padding: 20px;
+  color: #CE0040;
+  margin: 20px;
+  font-size: 20px;
+}
+
+.el_a:hover{
+  color: #CE0040;
+  text-decoration: underline;
+}
+
+/* .wrapper{
+  background: url('../imgs/legend/kel_fon.png') no-repeat center !important;
+  background-size: cover;
+  data-paroller-factor: -0.1;
+} */
+
+
+/* when the library loads, each [data-delighter]
+    gets the .delighter class */
+
+ .foo.delighter {
+    transition: all 5.7s ease-out;
+    transform: translateX(-100%);
+    opacity: 0;
+ }
+ .foo {
+   background-image: url(imgs/draw1.png);
+ }
+
+ /* the .started class is set when the top
+    of [data-delighter] is at 0.75 of the viewport
+    (where 0 is top and 1 is bottom) */
+
+ .foo.delighter.started {
+    transform: none;
+    opacity: 1;
+ }
+
+ /* an extra .ended state is set when the bottom
+    of [data-delighter] is at 0.75 of the viewport
+    (where 0 is top and 1 is bottom) */
+
+ .foo.delighter.started.ended {
+    border: solid red 10px;
+ }
+
+
+ .delighter pre {
+   display: block; transition: all 5s ease-out; opacity: 0;
+   padding: 20px 0;
+   width: 1px; overflow: hidden;
+ }
+ .delighter.started pre {
+   max-width: 99999px; width: 100%; opacity: 1;
+ }
+
+ pre {
+  font-size: .75em;
+  padding: 20px;
+
+
+}
+.content_flex{
+  display: flex;
+  justify-content: center;
+}
+
+ .usor{
+   width:80%;
+ }
+ .imga{
+   background-image: url(../imgs/uzor1.png);
+   background-size: 235px; /*400px*/
+   /* background-repeat: no-repeat; */
+   margin: auto;
+   /* width: 100%; */
+ }
+
+.make_route{
+  border: 0px black solid;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 10px 10px 0;
+  background-color: #f02057;
+
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+}
+
+.make_route:hover{
+  color: #fff;
+  background-color: #CE0040;
+}
+
+/*
+ .delighter.right { transform:translate(-100%); opacity:0; transition: all .75s ease-out; }
+ .delighter.right.started { transform:none; opacity:1; }
+ .delighter li { opacity: 0; transform: translatey(400%); transition: all .7s ease-out; }
+ .delighter.started li { opacity: 1; transform: none; }
+ .delighter.started li:nth-child(1) { transition: all .7s ease-out .1s; }
+ .delighter.started li:nth-child(2) { transition: all .7s ease-out .3s; }
+ .delighter.started li:nth-child(3) { transition: all .7s ease-out .5s; }
+ .delighter.started li:nth-child(4) { transition: all .7s ease-out .7s; }
+ .delighter.started li:nth-child(5) { transition: all .7s ease-out .9s; }
+ .delighter.started li:nth-child(6) { transition: all .7s ease-out 1.1s; }
+ .delighter.started li:nth-child(7) { transition: all .7s ease-out 1.3s; } */
+
+
+.legenda{
+   font-family: 'RozenDecor';
+   font-size: 24px;
+   text-align: justify;
+}
+
+.h_legend{
+  text-align: center;
+  font-size: 36px!important;
+}
+
+
+
+
+footer {
+	background: #272727;
+	color: #FFFFFF;
+	display: flex;
+	justify-content: space-around;
+	padding: 4rem 2rem ;
+	/*min-height: 20rem;*/
+}
+footer > div:first-child{
+	display: flex;
+
+}
+footer .logo {
+	width: 5rem;
+	margin-right: 1rem;
+}
+footer .logo > img {width: 100%}
+
+footer h2 {
+	font-weight: 800;
+}
+footer a {
+	position: relative;
+	margin-left: 1rem;
+	color: #FFFFFF;
+}

@@ -1,0 +1,213 @@
+body {
+	--color-pink: #CE0040;
+	--color-blue: #10689A;
+	--color-light-blue: #B2E3FC;
+	--color-gray: #ADB5B9;
+	--color-text: #272727;
+	--color-light-text: #FFFFFF;
+	font-family: 'Comfortaa', cursive;
+}
+html {scroll-behavior: smooth;}
+
+#index-title {
+	height: 75rem;
+	width: 100%;
+}
+
+#index-title > div {
+	position: absolute;
+}
+
+#index-title > div > div {
+	display: flex;
+	justify-content: center;
+}
+
+#index-title img {
+	height: 17rem;
+}
+
+#index-title #title {
+	top: 3rem;
+	width: 100%;
+}
+
+#index-title #title > div {display: flex; justify-content: center;}
+
+#index-title #title > div > div {
+	font-weight: 800;
+	font-size: 3rem;
+	background:  linear-gradient(to top, #645380  50%, #ADB5B9 50%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+#invication img {
+	height: 12rem !important;
+}
+
+#index-title #invication {
+	top: 11rem;
+	max-height: 10rem;
+	width: 100%;
+}
+
+#invication .text {
+	left: 2rem;
+	top: 3rem;
+	position: relative;
+}
+#invication h2 {
+
+}
+
+#invication > div > div {
+	display: flex;
+	justify-content: space-between;
+	width: 60%
+}
+#invication > div > div > div {
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+#invication > div > div > div > div {
+	position: absolute;
+	top: -0.5rem;
+
+	font-weight: 600;
+	color: #645380;
+}
+
+
+#invication2 img {
+	height: 12rem !important;
+}
+
+#index-title #invication2 {
+	top: 23rem;
+	max-height: 10rem;
+	width: 100%;
+}
+
+#invication2 .text {
+	right: 3rem;
+	top: 3rem;
+	position: relative;
+}
+#invication2 h2 {
+
+}
+
+#invication2 > div > div {
+	display: flex;
+	justify-content: center;
+	width: 60%
+}
+#invication2 > div > div > div {
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+#invication2 > div > div > div > div {
+	position: absolute;
+	top: -0.5rem;
+
+	font-weight: 600;
+	color: #645380;
+}
+
+#index-title #onmap {
+	top: 35rem;
+	width: 100%;
+}
+
+#index-title #onmap > div {display: flex; justify-content: center;}
+
+#onmap > div > div {text-align: center;}
+#onmap p {position: relative; top: 1rem;}
+#onmap .onmap {
+	background: #b2e3fcad;
+	padding: 1rem 5rem;
+	color: var(--color-blue);
+	text-decoration: none;
+	font-weight: 600
+}
+
+
+
+
+
+
+#index-title #contact {
+	top: 42rem;
+	max-height: 30rem;
+	width: 100%;
+	background-color: gainsboro;
+	justify-content: center;
+	display: flex;
+}
+
+#contact img {
+	height: 12rem !important;
+	margin-right: 3rem;
+}
+
+#contact a {
+	position: relative;
+	margin-left: 1rem;
+	color: black;
+}
+
+#index-title #contact > div {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	width: 60%;
+}
+#index-title #contact > div > div {
+	margin-top: 2rem;
+	justify-content: center;
+}
+
+
+
+#btnblock {
+	justify-content: center;
+	display: flex;
+	top: 60rem;
+	width: 100%;
+}
+
+#btnblock > div {
+	display: flex;
+	justify-content: center;
+	position: relative; !important
+	width: 60%;
+}
+
+#btnblock > div > div {
+	margin-top: 2rem;
+	justify-content: center;
+}
+
+#btnblock img {
+	height: 12rem !important;
+}
+
+#btnblock > div > div {text-align: center;}
+
+#btnblock p {
+	position: relative;
+	top: 1rem;
+}
+
+#btnblock .onmap {
+	background: #b2e3fcad;
+	padding: 1rem 5rem;
+	color: var(--color-blue);
+	text-decoration: none;
+	font-weight: 600
+}

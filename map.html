@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>ГрадГид - Карта</title>
+    <script
+      src="https://api-maps.yandex.ru/2.1/?apikey=692cd080-91ee-4514-a694-3f6a4e2bce8d&lang=ru_RU"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/dcc2a17f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="css/style_map.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <div class="menu">
+        <div class="flex_menu">
+          <div class="logo_menu">
+            <a href="#"><img src="imgs/logo.png" class="logo" /></a>
+          </div>
+          <div class="logo_menu2">
+            <a href="#" class="title1">ГрадГид</a>
+            <p class="mini_title">Твой личный путеводитель</p>
+          </div>
+        </div>
+        <div class="el_menu">
+          <a href="index.html#index-title" class="el_a">О нас </a>
+          <a href="" class="el_a">Инструкция</a>
+          <a href="index.html#contact" class="el_a">Контакты</a>
+          <a href="map.html" class="el_a map">Карта</a>
+        </div>
+      </div>
+    </header>
+
+    
+
+    <div id="main-map-content" style="position: relative">
+      <div id="map" style="height: 85vh">
+        <div class="container_">
+          <div class="legend semi_white">
+            <span class="pos">
+              <img src="imgs/star.png" alt="" />
+              <span>Интесерные места</span>
+            </span>
+            <span class="pos">
+              <img src="imgs/food.png" alt="" />
+              <span>Рестораны поблизости</span>
+            </span>
+            <span class="pos">
+              <input
+                type="checkbox"
+                name=""
+                value=""
+                onchange="toggleRests(this)"
+              />
+              <span>Показать рестораны поблизости</span>
+            </span>
+            <span class="pos">
+              <a href="cities.html" class="btnCreat">Добавить место</a>
+            </span>
+          </div>
+        </div>
+
+        <div class="editRout semi_white" style="display: none">
+          <h4>Выбрать вид маршрута</h4>
+          <div class="rout">
+            <span onclick="changeRout('bicycle', this)">
+              <i class="fas fa-bicycle"></i>
+            </span>
+            <span onclick="changeRout('auto', this)" class="selected">
+              <i class="fas fa-car"></i>
+            </span>
+            <span onclick="changeRout('pedestrian', this)">
+              <i class="fas fa-walking"></i>
+            </span>
+          </div>
+
+          <span class="close" onclick="closeRout()">
+            <i class="fas fa-times"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="map-obj" style="display: none">
+        <div class="map-obj-photo">
+          <img src="" id="img_" />
+          <span class="close" onclick="closePop()"
+            ><i class="fas fa-times"></i
+          ></span>
+        </div>
+        <div class="map-obj-content">
+          <h3 class="title">Церковь Климента</h3>
+          <div class="map-obj-info">
+            <div class="geo">
+              <i class="fas fa-map-marker"></i> <span>Крeмлевский парк</span>
+            </div>
+            <div class="places" style="display: none">
+              <div>
+                <i class="fas fa-utensils"></i> Рядом
+                <span class="count_places"></span> заведений
+              </div>
+              <a id="show_" onclick="showNear()">
+                <div id="show_places">Показать...</div>
+              </a>
+            </div>
+            <!-- <div class="phone">8 (555) 555 - 55 - 55</div> -->
+            <div class="eye"><i class="fas fa-eye"></i><span> 129</span></div>
+          </div>
+          <hr />
+          <div class="legends"></div>
+          <div class="share">
+            <div><i class="bi bi-share"></i> Поделиться</div>
+            <script src="https://yastatic.net/share2/share.js"></script>
+            <div
+              class="ya-share2"
+              data-curtain
+              data-shape="round"
+              data-services="messenger,vkontakte,odnoklassniki"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer></footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $("#filters-map-content").slideToggle("slow");
+      $("#filters-map-button").on("click", function () {
+        $("#filters-map-content").slideToggle("slow");
+      });
+    </script>
+    <!-- <div class="ya-share2" data-curtain data-shape="round" data-color-scheme="blackwhite" data-limit="4" data-services="vkontakte,facebook,odnoklassniki,telegram,twitter,viber,whatsapp"></div> -->
+
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+  </body>
+</html>
