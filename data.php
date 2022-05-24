@@ -1,6 +1,6 @@
 <?php
 	
-	$data = file_get_contents("json/data.json");
+	$data = file_get_contents($_POST['fileName']);
 	$json = json_decode($data, true);
 
 	$new_data = $_POST['newData'];
