@@ -21,6 +21,15 @@ body{
   height: 10rem;
 }
 
+.menu-map{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  background: 	#fff;
+  height: 5rem;
+}
+
 p{
 font-family: 'Comfortaa', cursive;
 }
@@ -34,203 +43,6 @@ a{
 }
 
 
-#hero {
-	height: 650px;
-	overflow: hidden;
-	position: relative;
-}
-.layer {
-	background-position: bottom center;
-	background-size: auto;
-	background-repeat: no-repeat;
-	width: 100%;
-	height: 800px;
-	/*position: fixed;*/
-	z-index: -1;
-}
-#hero,
-.layer {
-	/*min-height: 800px;*/
-}
-
-.layer-bg-1 {
-	background-image: url("../imgs/legend/kel_fon.png");
-  background-size: 800px 600px;
-    height: 800px;
-    width: 600px;
-
-}
-.layer-1 {
-	background-image: url("../imgs/legend/kel_pop.png");
-	background-position: left bottom;
-  background-size: 800px 600px;
-    height: 800px;
-    width: 600px;
-
-    position: relative;
-    top: -600px;
-    z-index: 1;
-}
-.layer-2 {
-	background-image: url("../imgs/legend/kel_bes.png");
- background-size: 500px 500px;
-    height: 500px;
-    width: 500px;
-
-
-    position: relative;
-    top: -900px;
-    z-index: 1;
-    right: -100px;
-}
-
-
-.layer-bg-2 {
-	background-image: url("../imgs/legend/sky.png");
-  background-size: 800px 600px;
-    height: 800px;
-    width: 600px;
-
-}
-.layer-3 {
-	background-image: url("../imgs/legend/sky_pop.png");
-	background-position: left bottom;
-  background-size: 800px 600px;
-    height: 800px;
-    width: 600px;
-
-    position: relative;
-    top: -600px;
-    z-index: 1;
-}
-.layer-4 {
-	background-image: url("../imgs/legend/sky_bird.png");
- background-size: 500px 500px;
-    height: 500px;
-    width: 500px;
-
-
-    position: relative;
-    top: -900px;
-    z-index: 1;
-    right: -100px;
-}
-
-
-.layer-bg-3 {
-	background-image: url("../imgs/legend/pin_fon.png");
-  background-size: 800px 600px;
-    height: 800px;
-    width: 600px;
-
-}
-.layer-5 {
-	background-image: url("../imgs/legend/pin_pop.png");
-	background-position: left bottom;
-  background-size: 600px 445px;
-    height: 800px;
-    width: 600px;
-
-    position: relative;
-    top: -460px;
-    right: 90px;
-    z-index: 1;
-}
-.layer-6 {
-	background-image: url("../imgs/legend/pin_foot.png");
- background-size: 500px 500px;
-    height: 500px;
-    width: 500px;
-    position: relative;
-    z-index: 1;
-    right: -100px;
-    top: -70px;
-
-}
-
-
-.layer-bg-4 {
-	background-image: url("../imgs/legend/zloy_fon.png");
-  background-size: 800px 600px;
-    height: 800px;
-    width: 600px;
-
-}
-.layer-7 {
-	background-image: url("../imgs/legend/zloy_bes.png");
-	background-position: left bottom;
-  background-size: 600px 445px;
-    height: 800px;
-    width: 600px;
-
-    position: relative;
-    top: -460px;
-    right: 90px;
-    z-index: 1;
-}
-.layer-8 {
-	background-image: url("../imgs/legend/zloy_fire.png");
-  background-size: 300px 300px;
-  height: 500px;
-  width: 500px;
-  position: relative;
-  z-index: 1;
-  right: 60px;
-  top: -100px;
-}
-
-
-.layer-bg-5 {
-	background-image: url("../imgs/legend/fon_chuch.png");
-  background-size: 600px 400px;
-    height: 800px;
-    width: 600px;
-
-}
-.layer-9 {
-	background-image: url("../imgs/legend/pop_chuch.png");
-	background-position: left bottom;
-  background-size: 600px 445px;
-    height: 800px;
-    width: 600px;
-
-    position: relative;
-    top: -460px;
-    right: 90px;
-    z-index: 1;
-}
-
-
-/* #hero {
-	height: 800px;
-	overflow: hidden;
-	position: relative;
-}
-.layer {
-	background-position: bottom center;
-	background-size: auto;
-	background-repeat: no-repeat;
-	width: 100%;
-	height: 800px;
-	position: fixed;
-	z-index: -1;
-}
-#hero,
-.layer {
-	min-height: 800px;
-}
-
-.layer-bg {
-	background-image: url("../imgs/legend/kel_fon.png");
-}
-.layer-1 {
-	background-image: url("../imgs/legend/kel_pop.png");
-	background-position: left bottom;
-}
-.layer-2 {
-	background-image: url("../imgs/legend/kel_bes.png");
-} */
-
 .info{
 
 }
@@ -238,6 +50,14 @@ a{
 .title1{
   font-family: 'Comfortaa', cursive;
   font-size: 24px;
+  text-transform: uppercase;
+  color: #645380;
+  font-weight: bold;
+  text-decoration: none;
+}
+.title1-map{
+  font-family: 'Comfortaa', cursive;
+  font-size: 22px;
   text-transform: uppercase;
   color: #645380;
   font-weight: bold;
@@ -254,6 +74,19 @@ a{
     font-family: 'Comfortaa', cursive;
 
     font-size: 14px;
+    text-transform: uppercase;
+    /*background: linear-gradient(180deg, transparent 55%, #0084ce75 45%);*/
+    /*-webkit-background-clip: text;*/
+    color: #645380;
+    display: table;
+    font-weight: bold;
+
+}
+.mini_title-map{
+
+    font-family: 'Comfortaa', cursive;
+
+    font-size: 12px;
     text-transform: uppercase;
     /*background: linear-gradient(180deg, transparent 55%, #0084ce75 45%);*/
     /*-webkit-background-clip: text;*/
@@ -300,6 +133,10 @@ a{
 .logo{
   margin-top: 10px;
   width: 100px;
+}
+.logo-map{
+  margin-top: 10px;
+  width: 70px;
 }
 
 .tags{

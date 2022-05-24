@@ -22,3 +22,18 @@ button {
   position: relative;
   align-content: center;
 }
+
+.map-obj_creat div > div{
+  display: flex;
+  margin-left: 55px;
+}
+.map-obj_creat div > div > form > div{
+  margin-top: 10px;
+}
+.map-obj_creat div > div > form{
+  font-size: 13px;
+}
+
+input::placeholder {
+    font-size: 12px;
+}
