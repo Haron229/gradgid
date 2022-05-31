@@ -2,19 +2,23 @@ ymaps.ready(init);
 
 var newPlacemark;
 var testMap;
+var currentId;
+//var objectManager;
 
 function init() {
-  testMap = new ymaps.Map("testMap", {
-    center: [51.533562, 46.034266],
-    zoom: 7,
-    controls: [],
-  });
+  testMap = new ymaps.Map(
+    "testMap",
+    {
+      center: [51.533562, 46.034266],
+      zoom: 7,
+      controls: [],
+    },
+    { searchControlProvider: "yandex#search" }
+  );
 
   newPlacemark = new ymaps.Placemark(
     testMap.getCenter(),
-    {
-      //hintContent: "Подсказка метки",
-    },
+    {},
     {
       draggable: true,
     }
@@ -25,42 +29,15 @@ function init() {
     gridSize: 32,
   });
 
-  /*newPlacemark.events.add("click", function (e) {
-    if ($("#form").css("display") == "block") {
-      $("#form").remove();
-    } else {
-      var formContent =
-        '<div id=\'form\'>\
-				<input type="text" name="icon_text"/>\
-				<input type="submit" value="Сохранить"/>\
-			</div>';
+  objectManager.objects.options.set("preset", "islands#greenDotIcon");
 
-      $("body").append(formContent);
-      $("#form").css({
-        left: e.get("pagePixels")[0],
-        top: e.get("pagePixels")[1],
-      });
-
-      $('#form input[name="icon_text"]').val(
-        newPlacemark.properties.get("iconContent")
-      );
-
-      $('#form input[type="submit"]').click(function () {
-        newPlacemark.properties.set({
-          iconContent: $('#form input[name="icon_text"]').val(),
-        });
-
-        $("#form").remove();
-      });
-    }
-  });*/
-
-  testMap.geoObjects.add(newPlacemark);
+  //testMap.geoObjects.add(newPlacemark);
   testMap.geoObjects.add(objectManager);
 
   $.ajax({
     url: "json/data.json",
   }).done(function (data) {
+    console.log(data);
     objectManager.add(data);
   });
 }
@@ -68,6 +45,7 @@ function init() {
 function updateDataJSON() {
   newPlacemark.properties.set({
     balloonContentHeader: $('#form input[name="name"]').val(),
+    tags: "test_tag",
   });
 
   let data = JSON.stringify(converPlacemark(newPlacemark));
@@ -76,21 +54,23 @@ function updateDataJSON() {
   $.ajax({
     url: "data.php",
     type: "POST",
-    data: { newData: data, fileName: "/json/data.json" },
+    data: { newData: data, fileName: "json/data.json" },
+    success: loadPlacemarks(),
   });
 }
 
 function converPlacemark(placemark) {
   var obj = {
     type: "Feature",
-    id: 123,
+    id: 0, //получать автоматически
     geometry: {
-      type: newPlacemark.geometry.getType(),
-      coordinates: newPlacemark.geometry.getCoordinates(),
+      type: placemark.geometry.getType(),
+      coordinates: placemark.geometry.getCoordinates(),
     },
     properties: {
-      balloonContentHeader: newPlacemark.properties.get("balloonContentHeader"),
+      balloonContentHeader: placemark.properties.get("balloonContentHeader"),
       //body, footer content
+      tags: placemark.properties.get("tags"),
     },
   };
 
