@@ -1,128 +1,145 @@
-  <div class="map-obj_creat" style="display: block">
-    <div class="map-obj_creat-photo">
-      <img src="imgs/geo_img.png" />
-    </div>
-    <span class="close"><i class="fas fa-times"></i></span>
-    <h3 class="title">Добавить место</h3>
-    <div>
-      <div>
-        <form id="form" method="post">
-          <div>
-            <label for="Name">Название: </label>
-            <input
-            type="text"
-            class="form-control"
-            name="name"
-            id="name"
-            placeholder="Введите название"
-            />
-          </div>
-          <div>
-            <label for="address">Адрес: </label>
-            <input
-            type="text"
-            class="form-control"
-            id="address"
-            placeholder="Введите адрес"
-            />
-          </div>
-          <div>
-            <label for="description">Описание: </label>
-            <p>
-              <textarea
-              rows="5"
-              cols="50"
-              name="description"
-              placeholder="Введите краткое описание."
-              ></textarea>
-            </p>
-          </div>
-
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="place2-tab" data-bs-toggle="tab" data-bs-target="#place2" type="button" role="tab" aria-controls="place2" aria-selected="true">Интересное место</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="food2-tab" data-bs-toggle="tab" data-bs-target="#food2" type="button" role="tab" aria-controls="food2" aria-selected="false">Кафе</button>
-            </li>
-          </ul>
-
-          <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="place2" role="tabpanel" aria-labelledby="place2-tab">
-
-              <div >
-                <label for="time">Время на посещение: </label>
-                <input type="time" id="time" name="time" />
-              </div>
-
-              <div >
-                <label for="place">Выберите тэг: </label>
-                <select size="1" name="place[]">
-                  <option selected disabled>Выбрать хештеги</option>
-                  <option value="Памятники">Памятники</option>
-                  <option value="Парки">Парки</option>
-                  <option value="Театры">Театры</option>
-                  <option value="Магазины">Магазины</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="food2" role="tabpanel" aria-labelledby="food2-tab">
-              <div>
-                Средний чек заведения:
-                <input
-                type="number"
-                size="5"
-                name="sum"
-                min="0"
-                max="100000"
-                value="1"
-                />
-              </div>
-              <div>
-                <label for="cafe">Выберите тэг: </label>
-                <select size="1" name="food[]">
-                  <option selected disabled>Выбрать хештэги</option>
-                  <option value="Памятники">Кафе</option>
-                  <option value="Парки">Рестораны</option>
-                  <option value="Театры">Столовая</option>
-                  <option value="Магазины">Кофейня</option>
-                  <option value="Магазины">Кондитерская</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-
-          <div>
-            <label for="time">Время работы: </label>
-            <input type="time" id="work-until-time" name="work-until-time" />
-          </div>
-          <div class="form-group">
-            <label for="foto">Изображение: </label>
-            <input type="file" class="form-control-file" id="foto" />
-          </div>
-          <div>
-            <label for="link">Ссылка на внешний ресурс: </label>
-            <input
-            type="text"
-            class="form-control"
-            name="link"
-            id="link"
-            placeholder="Введите ссылку на внешний сайт или соц.сеть"
-            />
-          </div>
-
-          <div>
-            <button
-            type="submit"
-            class="btn btn-danger"
-            onclick="updateDataJSON()"
-            >
-            Добавить на карту
-          </button>
-        </div>
-      </form>
-    </div>
+<div class="map-obj_creat" style="display: block">
+  <div class="map-obj_creat-photo">
+    <img src="imgs/geo_img.png" />
   </div>
+  <span class="close"><i class="fas fa-times"></i></span>
+  <h3 class="title">Добавить место</h3>
+  <div>
+    <div>
+      <form id="form" method="post">
+        <div>
+          <label for="Name">Название: </label>
+          <input
+          type="text"
+          class="form-control"
+          name="name"
+          id="name"
+          placeholder="Введите название"
+          />
+        </div>
+        <div>
+          <label for="address">Адрес: </label>
+          <input
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="Введите адрес"
+          />
+        </div>
+        <div>
+          <label for="description">Описание: </label>
+          <p>
+            <textarea
+            rows="5"
+            cols="50"
+            name="description"
+            placeholder="Введите краткое описание."
+            class="form-control"
+            ></textarea>
+          </p>
+        </div>
+
+
+        <button type="button" class="btn btn-outline-secondary active" id="place_interests">Интересные места</button>
+        <button type="button" class="btn btn-outline-secondary" id="place_cafe">Кафе/Рестораны</button>
+
+
+
+        <div class=""  style="margin-left: 0px;">
+          <div class="" id="place_menu">
+
+            <!--<div style="margin-left: 0px;">
+              <label for="time">Время на посещение: </label>
+              <input type="time" id="time" name="time" />
+            </div>-->
+
+            <div>
+              Среднее время посещения (часы):
+              <input
+              type="number"
+              class="form-control"
+              name="averageTime"
+              id="averageTime"
+              size="3"
+              min="0.5"
+              max="24"
+              value="1"
+              step="0.5"
+              />
+
+            </div>
+
+            <div style="margin-left: 0px;">
+              <label for="place">Выберите тэг: </label>
+              <select class="form-control" size="1" name="place[]">
+                <option selected disabled>Выбрать хештэги</option>
+                <option value="Памятники">Памятник</option>
+                <option value="Парки">Парк</option>
+                <option value="Театры">Театр</option>
+                <option value="Магазины">Магазин</option>
+                <option value="Магазины">Учебное заведение</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="" id="food_menu" style="margin-left: 0px;">
+            <div style="margin-left: 0px;">
+              Средний чек заведения:
+              <input
+              type="number"
+              size="5"
+              name="sum"
+              min="0"
+              max="100000"
+              value="1"
+              class="form-control"
+              />
+            </div>
+            <div style="margin-left: 0px;">
+              <label for="cafe">Выберите тэг: </label>
+              <select class="form-control" size="1" name="food[]">
+                <option selected disabled>Выбрать хештэги</option>
+                <option value="Памятники">Кафе</option>
+                <option value="Парки">Ресторан</option>
+                <option value="Театры">Столовая</option>
+                <option value="Магазины">Кофейня</option>
+                <option value="Магазины">Кондитерская</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label for="time">Открытие: </label>
+          <input class="form-control" type="time" id="work-until-time" name="work-until-time" />
+          <label for="time">Закрытие: </label>
+          <input class="form-control" type="time" id="work-until-time" name="work-until-time" />
+        </div>
+        <div class="form-group">
+          <label for="foto">Изображение: </label>
+          <input class="form-control" type="file" class="form-control-file" id="foto" />
+        </div>
+        <div>
+          <label for="link">Ссылка на внешний ресурс: </label>
+          <input
+          type="text"
+          class="form-control"
+          name="link"
+          id="link"
+          placeholder="Введите ссылку на внешний сайт или соц.сеть"
+          />
+        </div>
+
+        <div>
+          <button
+          type="submit"
+          class="btn btn-danger"
+          onclick="updateDataJSON()"
+          >
+          Добавить на карту
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 </div>

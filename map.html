@@ -7,9 +7,9 @@
 
   <head>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=692cd080-91ee-4514-a694-3f6a4e2bce8d&lang=ru_RU"
-      type="text/javascript"></script>
+    type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/dcc2a17f51.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,256 +22,268 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
     <!-- jQuery (Cloudflare CDN) -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Bootstrap Bundle JS (Cloudflare CDN) -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js"
-      integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   </head>
 
-<body>
-  <header>
-    <div class="menu-map">
-      <div class="flex_menu">
+  <body>
+    <header>
+      <div class="menu-map">
+        <div class="flex_menu">
 
-        <div class="logo_menu">
-          <a href="#"><img src="imgs/logo.png" class="logo-map"></a>
-        </div>
-        <div class="logo_menu2">
-          <a href="#" class="title1-map">ГрадГид</a>
-          <p class="mini_title-map">Твой личный путеводитель</p>
-        </div>
-      </div>
-      <div class="el_menu">
-        <a href="index.html#index-title" class="el_a">О нас </a>
-        <a href="" class="el_a">Инструкция</a>
-        <a href="index.html#contact" class="el_a">Контакты</a>
-        <a href="map.html" class="el_a map">Карта</a>
-      </div>
-    </div>
-  </header>
-
-
-
-  <div id='main-map-content' style="position: relative;">
-
-
-
-    <div id="map" style="height: 90vh"></div>
-
-
-
-    <div class="map-obj" style="display: block">
-      <div class="map-obj-photo">
-        <img src="" id="img_">
-        <span class="close" onclick="closePop()"><i class="fas fa-times"></i></span>
-      </div>
-      <div class="map-obj-content">
-        <h3 class="title">Церковь Климента</h3>
-        <div class="map-obj-info">
-          <div class="geo"><i class="fas fa-map-marker"></i> <span>Крeмлевский парк</span></div>
-          <div class="places" style="display: none">
-
-            <div><i class="fas fa-utensils"></i>
-              Рядом <span class="count_places"></span> заведений
-            </div>
-            <a id="show_" onclick="showNear()">
-              <div id="show_places">Показать...</div>
-            </a>
+          <div class="logo_menu">
+            <a href="#"><img src="imgs/logo.png" class="logo-map"></a>
           </div>
-          <!-- <div class="phone">8 (555) 555 - 55 - 55</div> -->
-          <div class="eye"><i class="fas fa-eye"></i><span> 129</span></div>
-        </div>
-        <hr>
-
-        <div class="share">
-          <div><i class="bi bi-share"></i> Поделиться</div>
-          <script src="https://yastatic.net/share2/share.js"></script>
-          <div class="ya-share2" data-curtain data-shape="round" data-services="messenger,vkontakte,odnoklassniki">
+          <div class="logo_menu2">
+            <a href="#" class="title1-map">ГрадГид</a>
+            <p class="mini_title-map">Твой личный путеводитель</p>
           </div>
         </div>
+        <div class="el_menu">
+          <a href="index.html#index-title" class="el_a">О нас </a>
+          <a href="" class="el_a">Инструкция</a>
+          <a href="index.html#contact" class="el_a">Контакты</a>
+          <a href="map.html" class="el_a map">Карта</a>
+        </div>
       </div>
-    </div>
+    </header>
 
 
 
-    <div class="ourRoute" style="display: none">
-      <div>
-        <div>
+    <div id='main-map-content' style="position: relative;">
+
+
+
+      <div id="map" style="height: 90vh"></div>
+
+
+      <!-- Вывод информации по конкретной точке на карте>-->
+      <div class="map-obj" style="display: block">
+        <div class="map-obj-photo">
+          <img src="imgs/conservatoria.jpg" id="img_">
+          <span class="close" onclick="closePop()"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="map-obj-content">
+          <h3 class="title">Саратовская государственная консерватория имю. Л.В. Собинова</h3>
+          <div class="map-obj-info">
+            <div class="geo"><i class="fas fa-map-marker"></i> <span>Саратов, просп. им. Петра Столыпина, 1</span></div>
+            <div class="hashtag"><span><a>#Учебные заведения<a> <a>#Памятник<a></span></div>
+              <!--<div class="eye"><i class="fas fa-eye"></i><span> 5294 просмотров</span></div>-->
+            <div class="description"><span>Высшее музыкальное учебное заведение в Саратове, третья по счёту консерватория в России. Основана в 1912 году на базе музыкального училища.</span></div>
+            <div class="averageCheck"><span><b>Средний чек:</b> 500руб.</span></div>
+            <div class="averageCheck"><span><b>Время работы:</b> 9:00-19:00</span></div>
+            <div class="linkToSite"><span><a href="file:///C:/Users/Denis/Documents/Универ/Диплом%20мага/gradgid/index.html#">Ссылка на сайт</a></span></div>
+
+          </div>
+          <button type="button" name="button" class="btn btn-danger" style="margin-left: 110px;">Добавить к маршруту</button>
+          <!--<div class="share">
+              <div><i class="bi bi-share"></i> Поделиться</div>
+              <script src="https://yastatic.net/share2/share.js"></script>
+              <div class="ya-share2" data-curtain data-shape="round" data-services="messenger,vkontakte,odnoklassniki">
+              </div>
+          </div>-->
+        </div>
+      </div>
+
+
+        <!-- Маршрут с выбранными местами для посещения-->
+        <div class="ourRoute" style="display: none">
           <div>
-            <span class="close" onclick="closePop()"><i class="fas fa-times"></i></span>
-            <h3 class="title">Ваш маршрут</h3>
-          </div>
-
-          <div class="pointRout-conteiner">
-            <ul class="push">
-              <li>
-                <p>Саратовская государственная консерватория</p>
-                <br><i class="fas fa-map-marker"></i> г. Саратов, просп. Кирова, 1
-                <br>Открыто до 18:00
-                <!--  <a id="show_" onclick="showNear()"><div id="show_places">Показать заведения рядом.</div></a>  -->
-              </li>
-              <li>
-                <p>Баскин Роббинс - мороженое</p>
-                <br><i class="fas fa-map-marker"></i> г. Саратов, ул. им. А.Н. Радищева, 24
-
-                <br>Открыто до 21:00
-              </li>
-              <li>
-                <p>Саратовский государственный цирк имени братьев Никитиных</p>
-                <br><i class="fas fa-map-marker"></i> г. Саратов, ул. им. В.И. Чапаева, 61
-                <br>Открыто до 20:00
-              </li>
-              <li>
-                <p>Саратовский академический театр юного зрителя имени Ю. П. Киселёва</p>
-                <br><i class="fas fa-map-marker"></i> г. Саратов, просп. Кирова, 1
-                <br>Открыто до 22:00
-              </li>
-              <li>
-                <p>Конец маршрута.</p>
-              </li>
-            </ul>
-          </div>
-          <div><button type="" class="btn btn-danger">Показать на карте.</button></div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-
-
-    <div class="map-obj_creat" style="display: block">
-      <div class="map-obj_creat-photo">
-        <img src="imgs/geo_img.png" />
-      </div>
-      <span class="close"><i class="fas fa-times"></i></span>
-      <h3 class="title">Добавить место</h3>
-      <div>
-        <div>
-          <form id="form" method="post">
             <div>
-              <label for="Name">Название: </label>
-              <input
-              type="text"
-              class="form-control"
-              name="name"
-              id="name"
-              placeholder="Введите название"
-              />
-            </div>
-            <div>
-              <label for="address">Адрес: </label>
-              <input
-              type="text"
-              class="form-control"
-              id="address"
-              placeholder="Введите адрес"
-              />
-            </div>
-            <div>
-              <label for="description">Описание: </label>
-              <p>
-                <textarea
-                rows="5"
-                cols="50"
-                name="description"
-                placeholder="Введите краткое описание."
-                ></textarea>
-              </p>
-            </div>
-
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="place2-tab" data-bs-toggle="tab" data-bs-target="#place2" type="button" role="tab" aria-controls="place2" aria-selected="true">Интересное место</button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="food2-tab" data-bs-toggle="tab" data-bs-target="#food2" type="button" role="tab" aria-controls="food2" aria-selected="false">Кафе</button>
-              </li>
-            </ul>
-
-            <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="place2" role="tabpanel" aria-labelledby="place2-tab" style="margin-left: 0px;">
-
-                <div style="margin-left: 0px;">
-                  <label for="time">Время на посещение: </label>
-                  <input type="time" id="time" name="time" />
-                </div>
-
-                <div style="margin-left: 0px;">
-                  <label for="place">Выберите тэг: </label>
-                  <select size="1" name="place[]">
-                    <option selected disabled>Выбрать хештеги</option>
-                    <option value="Памятники">Памятники</option>
-                    <option value="Парки">Парки</option>
-                    <option value="Театры">Театры</option>
-                    <option value="Магазины">Магазины</option>
-                  </select>
-                </div>
+              <div>
+                <span class="close" onclick="closePop()"><i class="fas fa-times"></i></span>
+                <h3 class="title">Ваш маршрут</h3>
               </div>
 
-              <div class="tab-pane fade" id="food2" role="tabpanel" aria-labelledby="food2-tab" style="margin-left: 0px;">
-                <div style="margin-left: 0px;">
-                  Средний чек заведения:
+              <div class="pointRout-conteiner">
+                <ul class="push">
+                  <li>
+                    <p>Саратовская государственная консерватория</p>
+                    <br><i class="fas fa-map-marker"></i> г. Саратов, просп. Кирова, 1
+                    <br>Открыто до 18:00
+                    <!--  <a id="show_" onclick="showNear()"><div id="show_places">Показать заведения рядом.</div></a>  -->
+                  </li>
+                  <li>
+                    <p>Баскин Роббинс - мороженое</p>
+                    <br><i class="fas fa-map-marker"></i> г. Саратов, ул. им. А.Н. Радищева, 24
+
+                    <br>Открыто до 21:00
+                  </li>
+                  <li>
+                    <p>Саратовский государственный цирк имени братьев Никитиных</p>
+                    <br><i class="fas fa-map-marker"></i> г. Саратов, ул. им. В.И. Чапаева, 61
+                    <br>Открыто до 20:00
+                  </li>
+                  <li>
+                    <p>Саратовский академический театр юного зрителя имени Ю. П. Киселёва</p>
+                    <br><i class="fas fa-map-marker"></i> г. Саратов, просп. Кирова, 1
+                    <br>Открыто до 22:00
+                  </li>
+                  <li>
+                    <p>Конец маршрута.</p>
+                  </li>
+                </ul>
+              </div>
+              <div><button type="" class="btn btn-danger">Показать на карте.</button></div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <!-- Добавление мест и кафе на карту-->
+
+        <div class="map-obj_creat" style="display: none">
+          <div class="map-obj_creat-photo">
+            <img src="imgs/geo_img.png" />
+          </div>
+          <span class="close"><i class="fas fa-times"></i></span>
+          <h3 class="title">Добавить место</h3>
+          <div>
+            <div>
+              <form id="form" method="post">
+                <div>
+                  <label for="Name">Название: </label>
                   <input
-                  type="number"
-                  size="5"
-                  name="sum"
-                  min="0"
-                  max="100000"
-                  value="1"
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  id="name"
+                  placeholder="Введите название"
                   />
                 </div>
-                <div style="margin-left: 0px;">
-                  <label for="cafe">Выберите тэг: </label>
-                  <select size="1" name="food[]">
-                    <option selected disabled>Выбрать хештэги</option>
-                    <option value="Памятники">Кафе</option>
-                    <option value="Парки">Рестораны</option>
-                    <option value="Театры">Столовая</option>
-                    <option value="Магазины">Кофейня</option>
-                    <option value="Магазины">Кондитерская</option>
-                  </select>
+                <div>
+                  <label for="address">Адрес: </label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  placeholder="Введите адрес"
+                  />
+                </div>
+                <div>
+                  <label for="description">Описание: </label>
+                  <p>
+                    <textarea
+                    rows="5"
+                    cols="50"
+                    name="description"
+                    placeholder="Введите краткое описание."
+                    class="form-control"
+                    ></textarea>
+                  </p>
+                </div>
+
+
+                <button type="button" class="btn btn-outline-secondary active" id="place_interests">Интересные места</button>
+                <button type="button" class="btn btn-outline-secondary" id="place_cafe">Кафе/Рестораны</button>
+
+
+
+                <div class=""  style="margin-left: 0px;">
+                  <div class="" id="place_menu">
+
+                    <!--<div style="margin-left: 0px;">
+                    <label for="time">Время на посещение: </label>
+                    <input type="time" id="time" name="time" />
+                  </div>-->
+
+                  <div>
+                    Среднее время посещения (часы):
+                    <input
+                    type="number"
+                    class="form-control"
+                    name="averageTime"
+                    id="averageTime"
+                    size="3"
+                    min="0.5"
+                    max="24"
+                    value="1"
+                    step="0.5"
+                    />
+
+                  </div>
+
+                  <div style="margin-left: 0px;">
+                    <label for="place">Выберите тэг: </label>
+                    <select class="form-control" size="1" name="place[]">
+                      <option selected disabled>Выбрать хештэги</option>
+                      <option value="Памятники">Памятник</option>
+                      <option value="Парки">Парк</option>
+                      <option value="Театры">Театр</option>
+                      <option value="Магазины">Магазин</option>
+                      <option value="Магазины">Учебное заведение</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="" id="food_menu" style="margin-left: 0px;">
+                  <div style="margin-left: 0px;">
+                    Средний чек заведения:
+                    <input
+                    type="number"
+                    size="5"
+                    name="sum"
+                    min="0"
+                    max="100000"
+                    value="1"
+                    class="form-control"
+                    />
+                  </div>
+                  <div style="margin-left: 0px;">
+                    <label for="cafe">Выберите тэг: </label>
+                    <select class="form-control" size="1" name="food[]">
+                      <option selected disabled>Выбрать хештэги</option>
+                      <option value="Памятники">Кафе</option>
+                      <option value="Парки">Ресторан</option>
+                      <option value="Театры">Столовая</option>
+                      <option value="Магазины">Кофейня</option>
+                      <option value="Магазины">Кондитерская</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
 
+              <div>
+                <label for="time">Открытие: </label>
+                <input class="form-control" type="time" id="work-until-time" name="work-until-time" />
+                <label for="time">Закрытие: </label>
+                <input class="form-control" type="time" id="work-until-time" name="work-until-time" />
+              </div>
+              <div class="form-group">
+                <label for="foto">Изображение: </label>
+                <input class="form-control" type="file" class="form-control-file" id="foto" />
+              </div>
+              <div>
+                <label for="link">Ссылка на внешний ресурс: </label>
+                <input
+                type="text"
+                class="form-control"
+                name="link"
+                id="link"
+                placeholder="Введите ссылку на внешний сайт или соц.сеть"
+                />
+              </div>
 
-            <div>
-              <label for="time">Время работы: </label>
-              <input type="time" id="work-until-time" name="work-until-time" />
+              <div>
+                <button
+                type="submit"
+                class="btn btn-danger"
+                onclick="updateDataJSON()"
+                >
+                Добавить на карту
+              </button>
             </div>
-            <div class="form-group">
-              <label for="foto">Изображение: </label>
-              <input type="file" class="form-control-file" id="foto" />
-            </div>
-            <div>
-              <label for="link">Ссылка на внешний ресурс: </label>
-              <input
-              type="text"
-              class="form-control"
-              name="link"
-              id="link"
-              placeholder="Введите ссылку на внешний сайт или соц.сеть"
-              />
-            </div>
-
-            <div>
-              <button
-              type="submit"
-              class="btn btn-danger"
-              onclick="updateDataJSON()"
-              >
-              Добавить на карту
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
     </div>
 
   </div>
@@ -280,18 +292,62 @@
 
   <footer></footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <!-- <div class="ya-share2" data-curtain data-shape="round" data-color-scheme="blackwhite" data-limit="4" data-services="vkontakte,facebook,odnoklassniki,telegram,twitter,viber,whatsapp"></div> -->
-
-  <script type="text/javascript" src="js/script.js"></script>
-  <script type="text/javascript" src="js/map.js"></script>
-  <script type="text/javascript">
 
 
-  </script>
+
+  <script>
+  $('#place_interests').click(function(){
+
+    $('#food_menu').css('display', 'none')
+    $('#place_menu').css('display', 'block')
+    $('#place_interests').addClass('active')
+    $('#place_cafe').removeClass('active')
+  })
+
+  $('#place_cafe').click(function(){
+
+    $('#place_menu').css('display', 'none')
+    $('#food_menu').css('display', 'block')
+    $('#place_cafe').addClass('active')
+    $('#place_interests').removeClass('active')
+  })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- <div class="ya-share2" data-curtain data-shape="round" data-color-scheme="blackwhite" data-limit="4" data-services="vkontakte,facebook,odnoklassniki,telegram,twitter,viber,whatsapp"></div> -->
+
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript">
+
+
+</script>
 </body>
 
 </html>

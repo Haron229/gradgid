@@ -26,6 +26,7 @@ button {
 .map-obj_creat div > div{
   display: flex;
   margin-left: 55px;
+  width: 85%;
 }
 .map-obj_creat div > div > form > div{
   margin-top: 10px;

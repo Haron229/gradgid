@@ -7,10 +7,18 @@ body {
 	--color-light-text: #FFFFFF;
 	font-family: 'Comfortaa', cursive;
 }
+
+.form-control{
+	font-size: 13px!important;
+}
 .map {
 	height: 100vh;
 	width: 100%;
 	background: var(--color-light-blue);
+}
+
+#form{
+	margin-bottom: 30px;
 }
 
 #filters-map-button {
@@ -81,9 +89,15 @@ body {
 	margin: 0;
 	height: .1rem;
 	opacity: 1;
-
 }
 
+.map-obj .hashtag{
+	color: blue;
+	font-size: 0.8rem;
+}
+.map-obj .linkToSite{
+	color: blue;
+}
 .geo_img{
 	width: 35%;
 	max-height: 40vh;
@@ -92,8 +106,6 @@ body {
 }
 
 .ourRoute div{
-
-
 }
 .ourRoute .title {
 	text-align: center;
@@ -185,6 +197,9 @@ body {
 	background: var(--color-light-text);
 	height: 90vh;
 	z-index: 15;
+	overflow-y: scroll;
+	font-size: 13px;
+
 
 }
 .map-obj_creat-photo{max-height: 40Vh}
@@ -232,13 +247,12 @@ body {
 
 .geo:before{
 	content: '';
-	float: left;
 	height: 1.5rem;
 	width: 1.5rem;
 	background: url(imgs/geo.png) ;
 	background-size: 1rem 1rem;
 	background-repeat: no-repeat;
-	margin-right: 1rem;
+
 }
 
 .places > div:first-child {
@@ -275,7 +289,7 @@ body {
 	margin-right: 1rem;
 }
 .eye {
-	position: absolute;
+
 	top: 1rem;
 	right: 1rem;
 }
@@ -322,14 +336,30 @@ body {
 }
 .map-obj-content{
 	overflow-y: scroll;
-	height: 40vh;
 }
 .map-obj-content > div > div {
 	margin: .5rem 0;
 }
 
 
-
+#place_menu{
+	display: block;
+	margin-left: 0px;
+}
+#place_menu div {
+	display: block;
+	margin-bottom: 10px;
+	margin-left: 0px;
+}
+#food_menu{
+	display: none;
+	margin-left: 0px;
+}
+#food_menu div {
+	display: block;
+	margin-bottom: 10px;
+	margin-left: 0px;
+}
 
 footer {
 	background: var(--color-text);
