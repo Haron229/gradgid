@@ -168,6 +168,8 @@ function loadPlacemarks() {
   $.ajax({
     url: "json/data.json",
   }).done(function (data) {
+    console.log(data);
+    alert(data.features.length);
     currentId = data.features.length;
     objectManager.add(data);
   });
@@ -207,18 +209,13 @@ function updateDataJSON() {
       }
     });
 
-  //Дальше происходит какая-то ухня
-  alert("1");
-
   newPlacemark.properties.set({
-    balloonContentHeader: $('#form input[name="name"]').val().text(),
+    balloonContentHeader: $('#form input[name="name"]').val(),
     balloonContentBody: $('#form textarea[name = "description"]').val(),
     open_time: $('#form input[name="open-time"]').val(),
     close_time: $('#form input[name="close-time"]').val(),
     link: $('#form input[name="link"]').val(),
   });
-
-  alert("2");
 
   if (isPlace) {
     newPlacemark.properties.set({
@@ -231,10 +228,6 @@ function updateDataJSON() {
       tags: $('#form select[name="food[]"]').val(),
     });
   }
-
-  alert("3");
-
-  alert("after all properties set");
 
   let data = JSON.stringify(converPlacemark(newPlacemark));
 
