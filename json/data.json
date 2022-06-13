@@ -1,6 +1,5 @@
 {
   "type": "FeatureCollection",
-<<<<<<< HEAD
   "features": [
     {
       "type": "Feature",
@@ -22,7 +21,4 @@
       "options": { "hasBalloon": false }
     }
   ]
-=======
-  "features": []
->>>>>>> 9b0c72a74fdb9fde787f082edc8314b955664398
 }
