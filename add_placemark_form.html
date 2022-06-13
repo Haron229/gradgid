@@ -1,4 +1,6 @@
-<div class="map-obj_creat" style="display: block">
+<!-- Добавление мест и кафе на карту-->
+
+<div class="map-obj_creat">
   <div class="map-obj_creat-photo">
     <img src="imgs/geo_img.png" />
   </div>
@@ -6,70 +8,76 @@
   <h3 class="title">Добавить место</h3>
   <div>
     <div>
-      <form id="form" method="post">
+      <form id="form" onsubmit="return false;">
         <div>
-          <label for="Name">Название: </label>
+          <label for="name">Название: </label>
           <input
-          type="text"
-          class="form-control"
-          name="name"
-          id="name"
-          placeholder="Введите название"
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            placeholder="Введите название"
           />
         </div>
         <div>
           <label for="address">Адрес: </label>
           <input
-          type="text"
-          class="form-control"
-          id="address"
-          placeholder="Введите адрес"
+            type="text"
+            class="form-control"
+            name="address"
+            id="address"
+            placeholder="Введите адрес"
           />
         </div>
         <div>
           <label for="description">Описание: </label>
           <p>
             <textarea
-            rows="5"
-            cols="50"
-            name="description"
-            placeholder="Введите краткое описание."
-            class="form-control"
+              rows="5"
+              cols="50"
+              name="description"
+              id="description"
+              placeholder="Введите краткое описание."
+              class="form-control"
             ></textarea>
           </p>
         </div>
 
+        <button
+          type="button"
+          class="btn btn-outline-secondary active"
+          id="place_interests"
+          onclick="showPlaceForm()"
+        >
+          Интересные места
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          id="place_cafe"
+          onclick="showCafeForm()"
+        >
+          Кафе/Рестораны
+        </button>
 
-        <button type="button" class="btn btn-outline-secondary active" id="place_interests">Интересные места</button>
-        <button type="button" class="btn btn-outline-secondary" id="place_cafe">Кафе/Рестораны</button>
-
-
-
-        <div class=""  style="margin-left: 0px;">
+        <div class="" style="margin-left: 0px">
           <div class="" id="place_menu">
-
-            <!--<div style="margin-left: 0px;">
-              <label for="time">Время на посещение: </label>
-              <input type="time" id="time" name="time" />
-            </div>-->
-
             <div>
               Среднее время посещения (часы):
               <input
-              type="number"
-              class="form-control"
-              name="averageTime"
-              id="averageTime"
-              size="3"
-              min="0.5"
-              max="24"
-              value="1"
-              step="0.5"
+                type="number"
+                class="form-control"
+                name="averageTime"
+                id="averageTime"
+                size="3"
+                min="0.5"
+                max="24"
+                value="1"
+                step="0.5"
               />
-
             </div>
 
-            <div style="margin-left: 0px;">
+            <div style="margin-left: 0px">
               <label for="place">Выберите тэг: </label>
               <select class="form-control" size="1" name="place[]">
                 <option selected disabled>Выбрать хештэги</option>
@@ -82,20 +90,20 @@
             </div>
           </div>
 
-          <div class="" id="food_menu" style="margin-left: 0px;">
-            <div style="margin-left: 0px;">
+          <div class="" id="food_menu" style="margin-left: 0px">
+            <div style="margin-left: 0px">
               Средний чек заведения:
               <input
-              type="number"
-              size="5"
-              name="sum"
-              min="0"
-              max="100000"
-              value="1"
-              class="form-control"
+                type="number"
+                size="5"
+                name="sum"
+                min="0"
+                max="100000"
+                value="1"
+                class="form-control"
               />
             </div>
-            <div style="margin-left: 0px;">
+            <div style="margin-left: 0px">
               <label for="cafe">Выберите тэг: </label>
               <select class="form-control" size="1" name="food[]">
                 <option selected disabled>Выбрать хештэги</option>
@@ -111,35 +119,50 @@
 
         <div>
           <label for="time">Открытие: </label>
-          <input class="form-control" type="time" id="work-until-time" name="work-until-time" />
+          <input
+            class="form-control"
+            type="time"
+            id="work-until-time"
+            name="open-time"
+          />
           <label for="time">Закрытие: </label>
-          <input class="form-control" type="time" id="work-until-time" name="work-until-time" />
+          <input
+            class="form-control"
+            type="time"
+            id="work-until-time"
+            name="close-time"
+          />
         </div>
         <div class="form-group">
           <label for="foto">Изображение: </label>
-          <input class="form-control" type="file" class="form-control-file" id="foto" />
+          <input
+            class="form-control"
+            type="file"
+            class="form-control-file"
+            id="foto"
+          />
         </div>
         <div>
           <label for="link">Ссылка на внешний ресурс: </label>
           <input
-          type="text"
-          class="form-control"
-          name="link"
-          id="link"
-          placeholder="Введите ссылку на внешний сайт или соц.сеть"
+            type="text"
+            class="form-control"
+            name="link"
+            id="link"
+            placeholder="Введите ссылку на внешний сайт или соц.сеть"
           />
         </div>
 
         <div>
           <button
-          type="submit"
-          class="btn btn-danger"
-          onclick="updateDataJSON()"
+            type="submit"
+            class="btn btn-danger"
+            onclick="updateDataJSON()"
           >
-          Добавить на карту
-        </button>
-      </div>
-    </form>
+            Добавить на карту
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </div>

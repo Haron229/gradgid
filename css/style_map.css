@@ -46,9 +46,6 @@ body {
 
 
 }
-#filters-map-content {
-
-}
 
 #food{
 	display: none;
@@ -105,8 +102,6 @@ body {
 
 }
 
-.ourRoute div{
-}
 .ourRoute .title {
 	text-align: center;
 	margin: 15px;
@@ -249,7 +244,7 @@ body {
 	content: '';
 	height: 1.5rem;
 	width: 1.5rem;
-	background: url(imgs/geo.png) ;
+	/*background: url(imgs/geo.png);*/
 	background-size: 1rem 1rem;
 	background-repeat: no-repeat;
 

@@ -7,7 +7,8 @@ var region;
 var clusterer;
 var multiRoute;
 
-var addPlacemarkForm;
+var addPlacemarkForm,
+  isPlace = true;
 
 $.ajax({
   url: "add_placemark_form.html",
@@ -93,6 +94,47 @@ function init() {
   //**********************************
   //==================================
 
+  //==================================
+  //Шаблон информационной панели метки
+  //==================================
+
+  var BalloonLayout = ymaps.templateLayoutFactory.createClass(
+    '<div class="map-obj">' +
+      '<div class="map-obj-photo">' +
+      '<img src="imgs/conservatoria.jpg" id="img_">' +
+      '<span class="close" onclick="closePop()"><i class="fas fa-times"></i></span>' +
+      "</div>" +
+      '<div class="map-obj-content">' +
+      '<h3 class="title">$[properties.balloonContentHeader]</h3>' +
+      '<div class="map-obj-info">' +
+      '<div class="geo"><i class="fas fa-map-marker"></i> <span>$[properties.address]</span></div>' +
+      '<div class="hashtag"><span><a>$[properties.tags]<a></span></div>' +
+      '<div class="description"><span>$[properties.description]</span></div>' +
+      '<div class="averageCheck"><span><b>Средний чек: </b>$[properties.sum]</span></div>' +
+      '<div class="averageCheck"><span><b>Время работы: </b>$[properties.open_time]-$[properties.close_time]</span></div>' +
+      '<div class="linkToSite"><span><a href="$[properties.link]">Ссылка на сайт</a></span></div>' +
+      "</div>" +
+      '<button type="button" name="button" class="btn btn-danger" style="margin-left: 110px;">Добавить к маршруту</button>' +
+      "</div>" +
+      "</div>",
+    {
+      build: function () {
+        this.constructor.superclass.build.call(this);
+        $[".close"].bind("click", onClose);
+      },
+      clear: function () {
+        this.constructor.superclass.clear.call(this);
+      },
+      onClose: function () {
+        $[".map-obj"].remove();
+      },
+    }
+  );
+
+  //==================================
+  //**********************************
+  //==================================
+
   //myMap.container.fitToVeiwport();
   //myMap.copyrights.add("Vasya Pupkin");
 
@@ -102,6 +144,24 @@ function init() {
   //myMap.geoObjects.add(clusterer);
 
   loadPlacemarks();
+}
+
+function showPlaceForm() {
+  $("#food_menu").css("display", "none");
+  $("#place_menu").css("display", "block");
+  $("#place_interests").addClass("active");
+  $("#place_cafe").removeClass("active");
+
+  isPlace = true;
+}
+
+function showCafeForm() {
+  $("#place_menu").css("display", "none");
+  $("#food_menu").css("display", "block");
+  $("#place_cafe").addClass("active");
+  $("#place_interests").removeClass("active");
+
+  isPlace = false;
 }
 
 function loadPlacemarks() {
@@ -130,6 +190,8 @@ function removeAddPlacemarkForm() {
 //========================
 
 function updateDataJSON() {
+  alert("0");
+  //Тут шо то не так
   ymaps
     .geocode(newPlacemark.geometry.getCoordinates(), {
       json: true,
@@ -145,14 +207,34 @@ function updateDataJSON() {
       }
     });
 
+  //Дальше происходит какая-то ухня
+  alert("1");
+
   newPlacemark.properties.set({
     balloonContentHeader: $('#form input[name="name"]').val().text(),
     balloonContentBody: $('#form textarea[name = "description"]').val(),
-    time: $('#form input[name="time"]').val(),
-    work_until_time: $('#form input[name="work-until-time"]').val(),
+    open_time: $('#form input[name="open-time"]').val(),
+    close_time: $('#form input[name="close-time"]').val(),
     link: $('#form input[name="link"]').val(),
-    tags: $('#form select[name="place[]"]').val(),
   });
+
+  alert("2");
+
+  if (isPlace) {
+    newPlacemark.properties.set({
+      averageTime: $('#form input[name="averageTime"]').val(),
+      tags: $('#form select[name="place[]"]').val(),
+    });
+  } else {
+    newPlacemark.properties.set({
+      sum: $('#form input[name="sum"]').val(),
+      tags: $('#form select[name="food[]"]').val(),
+    });
+  }
+
+  alert("3");
+
+  alert("after all properties set");
 
   let data = JSON.stringify(converPlacemark(newPlacemark));
 
@@ -162,6 +244,8 @@ function updateDataJSON() {
     data: { newData: data, fileName: "json/data.json" },
     success: loadPlacemarks(),
   });
+
+  return false;
 }
 
 function converPlacemark(placemark) {
