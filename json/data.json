@@ -1,6 +1,1 @@
-{
-  "type": "FeatureCollection",
-  "features": [
-    
-  ]
-}
+{"type":"FeatureCollection","features":[{"type":"Feature","id":0,"geometry":{"type":"Point","coordinates":[51.53356200000134,46.03426599999996]},"properties":{"balloonContentHeader":"\u0422\u0435\u0430\u0442\u0440\u0430\u043b\u043a\u0430","balloonContentBody":"dfsfsfsdf","address":"dasdas","open_time":"03:03","close_time":"03:03","averageTime":"1","link":"233223","tags":"\u041c\u0430\u0433\u0430\u0437\u0438\u043d\u044b"}},{"type":"Feature","id":1,"geometry":{"type":"Point","coordinates":[51.5500464672986,46.0318627407221]},"properties":{"balloonContentHeader":"\u0422\u0435\u0430\u0442\u0440\u0430\u043b\u043a\u0430","balloonContentBody":"dsada","address":"sadsad","open_time":"","close_time":"","averageTime":"1","link":"dsada","tags":"\u041f\u0430\u0440\u043a\u0438"}},{"type":"Feature","id":2,"geometry":{"type":"Point","coordinates":[51.539557046268584,46.01332331201122]},"properties":{"balloonContentHeader":"woocommerce","balloonContentBody":"","address":"sadasdasdas","open_time":"","close_time":"02:38","averageTime":"1","link":"","tags":null}},{"type":"Feature","id":3,"geometry":{"type":"Point","coordinates":[51.54897622964277,46.043879037108354]},"properties":{"balloonContentHeader":"Artem","balloonContentBody":"","address":"dasdas","open_time":"","close_time":"07:44","averageTime":"1","link":"","tags":null}}]}
