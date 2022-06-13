@@ -223,6 +223,8 @@ function loadPlacemarks() {
   $.ajax({
     url: "json/data.json",
   }).done(function (data) {
+    console.log(data);
+    alert(data.features.length);
     currentId = data.features.length;
     objectManager.add(data);
     /*objectManager.objects.each(function (object) {
@@ -268,6 +270,7 @@ function updateDataJSON() {
       }
     });
 
+<<<<<<< HEAD
   /*if (isPlace) {
     newPlacemark.properties.set({
       balloonContentHeader:
@@ -318,8 +321,10 @@ function updateDataJSON() {
     });
   }*/
 
-  newPlacemark.options.set({ hasBalloon: false });
+  newPlacemark.options.set({});
 
+=======
+>>>>>>> 9b0c72a74fdb9fde787f082edc8314b955664398
   newPlacemark.properties.set({
     balloonContentHeader: $('#form input[name="name"]').val(),
     balloonContentBody: $('#form textarea[name = "description"]').val(),
@@ -372,9 +377,7 @@ function converPlacemark(placemark) {
       link: placemark.properties.get("link"),
       tags: placemark.properties.get("tags"),
     },
-    options: {
-      hasBalloon: placemark.options.get("hasBalloon"),
-    },
+    options: { hasBalloon: false },
   };
 
   return obj;
