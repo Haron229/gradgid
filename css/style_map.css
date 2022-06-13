@@ -77,7 +77,7 @@ body {
 	position: relative;
 	padding: 1rem 1rem
 }
-.map-obj h3.title {
+.map-obj h3.title-panel {
 	color: var(--color-pink);
 	padding: 0 1rem;
 }
@@ -88,11 +88,11 @@ body {
 	opacity: 1;
 }
 
-.map-obj .hashtag{
+.map-obj .hashtag-panel{
 	color: blue;
 	font-size: 0.8rem;
 }
-.map-obj .linkToSite{
+.map-obj .linkToSite-panel{
 	color: blue;
 }
 .geo_img{
@@ -218,7 +218,7 @@ body {
 .map-obj_creat .title{
 	text-align: center;
 }
-.map-obj_creat  .close {
+.map-obj_creat  .close-form {
 	position: absolute;
 	right: 20px;
 	top: 20px;
@@ -235,7 +235,7 @@ body {
 	transition: .5s;
 }
 
-.map-obj_creat  .close:hover {
+.map-obj_creat  .close-form:hover {
 	/* color: #272727; */
 	background-color: var(--color-blue);
 }

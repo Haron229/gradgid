@@ -1,6 +1,6 @@
 ymaps.ready(init);
 
-var myMap, objectManager, addPlacemarkButton, newPlacemark;
+var myMap, objectManager, addPlacemarkButton, newPlacemark, sidePanel;
 var currentId;
 
 var region;
@@ -8,7 +8,9 @@ var clusterer;
 var multiRoute;
 
 var addPlacemarkForm,
-  isPlace = true;
+  infoPanel,
+  isPlace = true,
+  balloonLayout;
 
 $.ajax({
   url: "add_placemark_form.html",
@@ -17,9 +19,20 @@ $.ajax({
   addPlacemarkForm = data;
 });
 
-$("body").on("click", ".close", function () {
+$.ajax({
+  url: "info_panel.html",
+  dataType: "html",
+}).done(function (data) {
+  infoPanel = data;
+});
+
+$("body").on("click", ".close-form", function () {
   removeAddPlacemarkForm();
   removeLastPlacemark();
+});
+
+$("body").on("click", ".close-panel", function () {
+  removeInfoPanel();
 });
 
 function init() {
@@ -98,38 +111,39 @@ function init() {
   //Шаблон информационной панели метки
   //==================================
 
-  var BalloonLayout = ymaps.templateLayoutFactory.createClass(
-    '<div class="map-obj">' +
-      '<div class="map-obj-photo">' +
-      '<img src="imgs/conservatoria.jpg" id="img_">' +
-      '<span class="close" onclick="closePop()"><i class="fas fa-times"></i></span>' +
-      "</div>" +
-      '<div class="map-obj-content">' +
-      '<h3 class="title">$[properties.balloonContentHeader]</h3>' +
-      '<div class="map-obj-info">' +
-      '<div class="geo"><i class="fas fa-map-marker"></i> <span>$[properties.address]</span></div>' +
-      '<div class="hashtag"><span><a>$[properties.tags]<a></span></div>' +
-      '<div class="description"><span>$[properties.description]</span></div>' +
-      '<div class="averageCheck"><span><b>Средний чек: </b>$[properties.sum]</span></div>' +
-      '<div class="averageCheck"><span><b>Время работы: </b>$[properties.open_time]-$[properties.close_time]</span></div>' +
-      '<div class="linkToSite"><span><a href="$[properties.link]">Ссылка на сайт</a></span></div>' +
-      "</div>" +
-      '<button type="button" name="button" class="btn btn-danger" style="margin-left: 110px;">Добавить к маршруту</button>' +
-      "</div>" +
-      "</div>",
-    {
-      build: function () {
-        this.constructor.superclass.build.call(this);
-        $[".close"].bind("click", onClose);
-      },
-      clear: function () {
-        this.constructor.superclass.clear.call(this);
-      },
-      onClose: function () {
-        $[".map-obj"].remove();
-      },
+  objectManager.objects.events.add("click", function (e) {
+    var id = e.get("objectId"),
+      geoObject = objectManager.objects.getById(id);
+
+    $("#main-map-content").append(infoPanel);
+
+    $(".title-panel").append(geoObject.properties.balloonContentHeader);
+    $(".address-panel").append(geoObject.properties.address);
+    $(".hashtag-panel").append(
+      "<span><a>" + geoObject.properties.tags + "<a></span>"
+    );
+    $(".description-panel").append(
+      "<span><a>" + geoObject.properties.balloonContentBody + "<a></span>"
+    );
+    $(".open-time-panel").append(
+      "<span><b>Время работы: </b>" +
+        geoObject.properties.open_time +
+        "-" +
+        geoObject.properties.close_time +
+        "</span>"
+    );
+    $(".linkToSite-panel").append(
+      '<span><a href="' +
+        geoObject.properties.link +
+        '">Ссылка на сайт</a></span>'
+    );
+
+    if (geoObject.properties.sum) {
+      $(".average-panel").append(
+        "<span><b>Средний чек: </b>" + geoObject.properties.sum + "</span>"
+      );
     }
-  );
+  });
 
   //==================================
   //**********************************
@@ -170,6 +184,10 @@ function loadPlacemarks() {
   }).done(function (data) {
     currentId = data.features.length;
     objectManager.add(data);
+
+    myMap.geoObjects.each(function (object) {
+      object.options.set({ hasBalloon: false });
+    });
   });
 }
 
@@ -185,12 +203,15 @@ function removeAddPlacemarkForm() {
   $(".map-obj_creat").remove();
 }
 
+function removeInfoPanel() {
+  $(".map-obj").remove();
+}
+
 //========================
 //Функции добавления меток
 //========================
 
 function updateDataJSON() {
-  alert("0");
   //Тут шо то не так
   ymaps
     .geocode(newPlacemark.geometry.getCoordinates(), {
@@ -207,18 +228,14 @@ function updateDataJSON() {
       }
     });
 
-  //Дальше происходит какая-то ухня
-  alert("1");
-
   newPlacemark.properties.set({
-    balloonContentHeader: $('#form input[name="name"]').val().text(),
+    balloonContentHeader: $('#form input[name="name"]').val(),
     balloonContentBody: $('#form textarea[name = "description"]').val(),
+    address: $('#form input[name = "address"]').val(),
     open_time: $('#form input[name="open-time"]').val(),
     close_time: $('#form input[name="close-time"]').val(),
     link: $('#form input[name="link"]').val(),
   });
-
-  alert("2");
 
   if (isPlace) {
     newPlacemark.properties.set({
@@ -231,10 +248,6 @@ function updateDataJSON() {
       tags: $('#form select[name="food[]"]').val(),
     });
   }
-
-  alert("3");
-
-  alert("after all properties set");
 
   let data = JSON.stringify(converPlacemark(newPlacemark));
 
@@ -259,8 +272,11 @@ function converPlacemark(placemark) {
     properties: {
       balloonContentHeader: placemark.properties.get("balloonContentHeader"),
       balloonContentBody: placemark.properties.get("balloonContentBody"),
-      time: placemark.properties.get("time"),
-      work_until_time: placemark.properties.get("work_until_time"),
+      address: placemark.properties.get("address"),
+      open_time: placemark.properties.get("open_time"),
+      close_time: placemark.properties.get("close_time"),
+      averageTime: placemark.properties.get("averageTime"),
+      sum: placemark.properties.get("sum"),
       link: placemark.properties.get("link"),
       tags: placemark.properties.get("tags"),
     },
