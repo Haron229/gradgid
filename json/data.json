@@ -1,6 +1,28 @@
 {
   "type": "FeatureCollection",
+<<<<<<< HEAD
   "features": [
-    
+    {
+      "type": "Feature",
+      "id": 0,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [51.55817944696021, 46.05211878320262]
+      },
+      "properties": {
+        "balloonContentHeader": "dsadasd",
+        "balloonContentBody": "dasdas",
+        "address": "dasdasd",
+        "open_time": "11:11",
+        "close_time": "11:11",
+        "averageTime": "2.5",
+        "link": "dsadasd",
+        "tags": "\u041f\u0430\u043c\u044f\u0442\u043d\u0438\u043a\u0438"
+      },
+      "options": { "hasBalloon": false }
+    }
   ]
+=======
+  "features": []
+>>>>>>> 9b0c72a74fdb9fde787f082edc8314b955664398
 }
