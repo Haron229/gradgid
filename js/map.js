@@ -1,10 +1,17 @@
 ymaps.ready(init);
 
-var myMap, objectManager, addPlacemarkButton, newPlacemark;
+var myMap,
+  objectManager,
+  objectBuffer,
+  placesCollection,
+  foodCollection,
+  addPlacemarkButton,
+  newPlacemark;
 var currentId;
 
 var region;
 var clusterer;
+
 var multiRoute,
   routePointsCoordinates = [],
   routePointsFull = [],
@@ -67,8 +74,25 @@ function init() {
   objectManager = new ymaps.ObjectManager({
     clusterize: true,
     gridSize: 64,
-    clusterIconLayout: "default#pieChart",
+    preset: "islands#redClusterIcons",
   });
+
+  objectBuffer = new ymaps.ObjectManager({
+    clusterize: true,
+    gridSize: 64,
+    preset: "islands#redClusterIcons",
+  });
+
+  //Создание отдельных коллекций для мест
+  placesCollection = new ymaps.GeoObjectCollection(null, {
+    iconLayout: "default#image",
+    iconImageHref: "imgs/marker_red.png",
+  });
+
+  foodCollection = new ymaps.GeoObjectCollection(null, {
+    preset: "islands#redFoodCircleIcon",
+  });
+
   //Создание кастомного элемента управления типом карты (Слои)
   var typeSelector = new ymaps.control.TypeSelector({
     mapTypes: ["yandex#map", "yandex#satellite", "yandex#hybrid"],
@@ -90,6 +114,8 @@ function init() {
   });
 
   myMap.geoObjects.add(objectManager);
+  //myMap.geoObjects.add(placesCollection);
+  //myMap.geoObjects.add(foodCollection);
 
   myMap.controls.add(routeButton, { float: "right", floatIndex: 1000 });
   myMap.controls.add(addPlacemarkButton, { float: "right", floatIndex: 500 });
@@ -108,7 +134,8 @@ function init() {
         },
         {
           draggable: true,
-          //Иконка метки
+          iconLayout: "default#image",
+          iconImageHref: "imgs/marker_blue.png",
         }
       );
       myMap.geoObjects.add(newPlacemark);
@@ -131,6 +158,11 @@ function init() {
   //==================================
 
   routeButton.events.add("click", function (e) {
+    if (routePointsFull.length == 0) {
+      alert("Маршрут еще не задан. Добавьте хотя бы две точки.");
+      return;
+    }
+
     if (!e.get("target").isSelected()) {
       routeButton.select();
 
@@ -138,22 +170,17 @@ function init() {
 
       $("#main-map-content").append(routePanel);
 
-
-
-
-
       routePointsFull.forEach((element) => {
         $(".push").append(
-          '<li><p>' +
+          "<li><p>" +
             element.properties.balloonContentHeader +
             '</p><br /><i class="fas fa-map-marker"></i>' +
             element.properties.address +
-            '<br />Открыто до ' +
+            "<br />Открыто до " +
             element.properties.close_time +
-            '<i class="fas fa-sort-asc"></i>'+
-            '<i class="fas fa-sort-desc"></i>'+
-            '</li>'
-
+            '<i class="fas fa-sort-asc"></i>' +
+            '<i class="fas fa-sort-desc"></i>' +
+            "</li>"
         );
       });
 
@@ -162,7 +189,6 @@ function init() {
     } else {
       removeRoutePanel();
     }
-
   });
 
   //==================================
@@ -176,6 +202,8 @@ function init() {
   objectManager.objects.events.add("click", function (e) {
     var id = e.get("objectId"),
       geoObject = objectManager.objects.getById(id);
+
+    removeInfoPanel();
 
     openPoint = geoObject;
 
@@ -222,7 +250,6 @@ function init() {
   //myMap.geoObjects.add(clusterer);
 
   loadPlacemarks();
-  //showMultiRoute();
 }
 
 function showPlaceForm() {
@@ -249,6 +276,16 @@ function loadPlacemarks() {
   }).done(function (data) {
     currentId = data.features.length;
     objectManager.add(data);
+
+    /*objectManager.objects.each(function (obj) {
+      if (obj.properties.averageTime) {
+        objectBuffer.add(obj);
+        objectManager.objects.remove(obj);
+      }
+    });
+
+    placesCollection.add(objectBuffer);
+    foodCollection.add(objectManager);*/
 
     myMap.geoObjects.each(function (object) {
       object.options.set({ hasBalloon: false });
@@ -305,6 +342,8 @@ function addPointToRoute() {
     routePointsFull.push(openPoint);
     routePointsCoordinates.push(openPoint.geometry.coordinates);
   }
+
+  alert("Точка добавлена в маршрут.");
 }
 
 //==================================
@@ -317,7 +356,7 @@ function addPointToRoute() {
 
 function updateDataJSON() {
   //Тут шо то не так
-  ymaps
+  /*ymaps
     .geocode(newPlacemark.geometry.getCoordinates(), {
       json: true,
       results: 1,
@@ -330,7 +369,7 @@ function updateDataJSON() {
           address: geoObjectData.metaDataProperty.GeocoderMetaData.text,
         });
       }
-    });
+    });*/
 
   newPlacemark.properties.set({
     balloonContentHeader: $('#form input[name="name"]').val(),
@@ -346,10 +385,18 @@ function updateDataJSON() {
       averageTime: $('#form input[name="averageTime"]').val(),
       tags: $('#form select[name="place[]"]').val(),
     });
+    newPlacemark.options.set({
+      iconLayout: "default#image",
+      iconImageHref: "imgs/marker_red.png",
+    });
   } else {
     newPlacemark.properties.set({
       sum: $('#form input[name="sum"]').val(),
       tags: $('#form select[name="food[]"]').val(),
+    });
+    newPlacemark.options.set({
+      iconLayout: "default#image",
+      iconImageHref: "imgs/food.png",
     });
   }
 
@@ -383,6 +430,11 @@ function converPlacemark(placemark) {
       sum: placemark.properties.get("sum"),
       link: placemark.properties.get("link"),
       tags: placemark.properties.get("tags"),
+    },
+    options: {
+      iconLayout: placemark.options.get("iconLayout"),
+      iconImageHref: placemark.options.get("iconImageHref"),
+      preset: placemark.options.get("preset"),
     },
   };
 
