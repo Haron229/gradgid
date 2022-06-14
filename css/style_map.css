@@ -116,6 +116,7 @@ body {
 	background: var(--color-light-text);
 	height: 90vh;
 	z-index: 15;
+	overflow: overlay;
 }
 
 .ourRoute  .close-panel {
@@ -124,7 +125,7 @@ body {
 	top: 20px;
 	background-color: var(--color-light-blue);
 	color: white;
-	/* padding: 3px; */
+
 	font-size: 20px;
 	border-radius: 50%;
 	width: 25px;
@@ -136,9 +137,10 @@ body {
 }
 
 .ourRoute  .close-panel:hover {
-	/* color: #272727; */
+
 	background-color: var(--color-blue);
 }
+
 .pointRout-conteiner{
 	margin: 15px;
 }
@@ -179,8 +181,9 @@ body {
 .push li:hover:before{box-shadow: 0 0 0 10px rgba(0,0,0,.2)}
 .push li:last-child:after {content: none;}
 
-.ourRoute .btn-danger{
-	margin-left: 130px;
+
+.ourRoute .btn{
+margin: 0px 15px 50px 15px;
 }
 
 
@@ -504,4 +507,18 @@ footer h2 {
 	color: #CE0040;
 	margin: 10px;
 	font-size: 16px;
+}
+
+
+.fa-sort-asc{
+	position: absolute;
+	right: 425px;
+	top: 65px;
+	font-size: 25px;
+}
+.fa-sort-desc{
+	position: absolute;
+right: 425px;
+top: 105px;
+font-size: 25px;
 }

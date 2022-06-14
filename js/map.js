@@ -138,15 +138,22 @@ function init() {
 
       $("#main-map-content").append(routePanel);
 
+
+
+
+
       routePointsFull.forEach((element) => {
         $(".push").append(
-          "<li><p>" +
+          '<li><p>' +
             element.properties.balloonContentHeader +
             '</p><br /><i class="fas fa-map-marker"></i>' +
             element.properties.address +
-            "<br />Открыто до " +
+            '<br />Открыто до ' +
             element.properties.close_time +
-            "</li>"
+            '<i class="fas fa-sort-asc"></i>'+
+            '<i class="fas fa-sort-desc"></i>'+
+            '</li>'
+
         );
       });
 
@@ -155,6 +162,7 @@ function init() {
     } else {
       removeRoutePanel();
     }
+
   });
 
   //==================================
