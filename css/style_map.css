@@ -54,9 +54,6 @@ body {
 	display: block;
 }
 
-.map-obj-content {
-	padding: 1rem 0;
-}
 .map-obj{
 	width: 40%;
 	max-width: 30rem;
@@ -154,9 +151,10 @@ body {
 }
 .push li {
   position: relative;
-  padding: 20px 0 10px 40px;
+  padding: 20px 40px 10px 40px;
   color: #645380;
   cursor: pointer;
+  word-break: break-all;
 }
 .push li:before {
   position: absolute;
@@ -181,6 +179,10 @@ body {
 .push li:hover:before{box-shadow: 0 0 0 10px rgba(0,0,0,.2)}
 .push li:last-child:after {content: none;}
 
+.push div{
+	position: relative;
+	top: -45px;
+}
 
 .ourRoute .btn{
 margin: 0px 15px 50px 15px;
@@ -333,7 +335,9 @@ margin: 0px 15px 50px 15px;
 	color: var(--color-light-text);
 }
 .map-obj-content{
-	overflow-y: scroll;
+	overflow: overlay;
+	padding: 1rem 0;
+	word-break: break-all;
 }
 .map-obj-content > div > div {
 	margin: .5rem 0;
@@ -510,15 +514,21 @@ footer h2 {
 }
 
 
-.fa-sort-asc{
-	position: absolute;
-	right: 425px;
-	top: 65px;
+.bi-chevron-compact-up{
+	float: left;
+	position: relative;
+	right: 75px;
+	top: -55px;
 	font-size: 25px;
 }
-.fa-sort-desc{
-	position: absolute;
-right: 425px;
-top: 105px;
-font-size: 25px;
+.bi-chevron-compact-down{
+	float: left;
+	position: relative;
+	right: 100px;
+	
+	font-size: 25px;
+}
+.bi-x-lg{
+	position: relative;
+	left: 87%;
 }

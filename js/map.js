@@ -1,10 +1,18 @@
 ymaps.ready(init);
 
-var myMap, objectManager, addPlacemarkButton, newPlacemark;
+var myMap,
+  objectManager,
+  objectBuffer,
+  placesCollection,
+  foodCollection,
+  addPlacemarkButton,
+  newPlacemark;
+
 var currentId;
 
 var region;
 var clusterer;
+
 var multiRoute,
   routePointsCoordinates = [],
   routePointsFull = [],
@@ -46,6 +54,10 @@ $("body").on("click", ".close-panel", function () {
   removeRoutePanel();
 });
 
+$("body").on("click", ".close-autoriz", function () {
+  $('.form_autor_backgr').css('display', 'none');
+});
+
 function init() {
   //Создание карты
   myMap = new ymaps.Map(
@@ -67,8 +79,25 @@ function init() {
   objectManager = new ymaps.ObjectManager({
     clusterize: true,
     gridSize: 64,
-    clusterIconLayout: "default#pieChart",
+    preset: "islands#redClusterIcons",
   });
+
+  objectBuffer = new ymaps.ObjectManager({
+    clusterize: true,
+    gridSize: 64,
+    preset: "islands#redClusterIcons",
+  });
+
+  //Создание отдельных коллекций для мест
+  placesCollection = new ymaps.GeoObjectCollection(null, {
+    iconLayout: "default#image",
+    iconImageHref: "imgs/marker_red.png",
+  });
+
+  foodCollection = new ymaps.GeoObjectCollection(null, {
+    preset: "islands#redFoodCircleIcon",
+  });
+
   //Создание кастомного элемента управления типом карты (Слои)
   var typeSelector = new ymaps.control.TypeSelector({
     mapTypes: ["yandex#map", "yandex#satellite", "yandex#hybrid"],
@@ -90,6 +119,8 @@ function init() {
   });
 
   myMap.geoObjects.add(objectManager);
+  //myMap.geoObjects.add(placesCollection);
+  //myMap.geoObjects.add(foodCollection);
 
   myMap.controls.add(routeButton, { float: "right", floatIndex: 1000 });
   myMap.controls.add(addPlacemarkButton, { float: "right", floatIndex: 500 });
@@ -108,7 +139,9 @@ function init() {
         },
         {
           draggable: true,
-          //Иконка метки
+          iconLayout: "default#image",
+          iconImageHref: "imgs/marker_blue.png",
+          iconImageSize: [30, 45],
         }
       );
       myMap.geoObjects.add(newPlacemark);
@@ -131,6 +164,11 @@ function init() {
   //==================================
 
   routeButton.events.add("click", function (e) {
+    if (routePointsFull.length == 0) {
+      alert("Маршрут еще не задан. Добавьте хотя бы две точки.");
+      return;
+    }
+
     if (!e.get("target").isSelected()) {
       routeButton.select();
 
@@ -138,31 +176,12 @@ function init() {
 
       $("#main-map-content").append(routePanel);
 
+      showRoutePoints();
 
-
-
-
-      routePointsFull.forEach((element) => {
-        $(".push").append(
-          '<li><p>' +
-            element.properties.balloonContentHeader +
-            '</p><br /><i class="fas fa-map-marker"></i>' +
-            element.properties.address +
-            '<br />Открыто до ' +
-            element.properties.close_time +
-            '<i class="fas fa-sort-asc"></i>'+
-            '<i class="fas fa-sort-desc"></i>'+
-            '</li>'
-
-        );
-      });
-
-      $(".push").append("<li><p>Конец маршрута.</p></li>");
       removeAddPlacemarkForm();
     } else {
       removeRoutePanel();
     }
-
   });
 
   //==================================
@@ -176,6 +195,8 @@ function init() {
   objectManager.objects.events.add("click", function (e) {
     var id = e.get("objectId"),
       geoObject = objectManager.objects.getById(id);
+
+    removeInfoPanel();
 
     openPoint = geoObject;
 
@@ -222,7 +243,6 @@ function init() {
   //myMap.geoObjects.add(clusterer);
 
   loadPlacemarks();
-  //showMultiRoute();
 }
 
 function showPlaceForm() {
@@ -249,6 +269,16 @@ function loadPlacemarks() {
   }).done(function (data) {
     currentId = data.features.length;
     objectManager.add(data);
+
+    /*objectManager.objects.each(function (obj) {
+      if (obj.properties.averageTime) {
+        objectBuffer.add(obj);
+        objectManager.objects.remove(obj);
+      }
+    });
+
+    placesCollection.add(objectBuffer);
+    foodCollection.add(objectManager);*/
 
     myMap.geoObjects.each(function (object) {
       object.options.set({ hasBalloon: false });
@@ -305,7 +335,73 @@ function addPointToRoute() {
     routePointsFull.push(openPoint);
     routePointsCoordinates.push(openPoint.geometry.coordinates);
   }
+
+  alert("Точка добавлена в маршрут.");
 }
+
+function showRoutePoints() {
+  $(".push").empty();
+
+  let i = 1;
+  routePointsFull.forEach((element) => {
+    $(".push").append(
+      "<li class='route-point-" +
+        i +
+        "'><p>" +
+        element.properties.balloonContentHeader +
+        '</p><br /><i class="fas fa-map-marker"></i>' +
+        element.properties.address +
+        "<br /><p>Открыто до " +
+        element.properties.close_time +
+        '</p><div><i class="bi bi-chevron-compact-up"></i>' +
+        '<i class="bi bi-chevron-compact-down"></i>' +
+        '<i class="bi bi-x-lg"></i></div>' +
+        "</li>"
+    );
+    i++;
+  });
+
+  $(".push").append("<li class='route-end'><p>Конец маршрута.</p></li>");
+}
+
+$("body").on("click", ".bi-chevron-compact-up", function () {
+  let item = parseInt($(this).parent().parent().attr("class").substr(-1)) - 1;
+  if (item != 0) {
+    let prevItem = routePointsCoordinates[item - 1];
+    routePointsCoordinates[item - 1] = routePointsCoordinates[item];
+    routePointsCoordinates[item] = prevItem;
+
+    prevItem = routePointsFull[item - 1];
+    routePointsFull[item - 1] = routePointsFull[item];
+    routePointsFull[item] = prevItem;
+  }
+  showRoutePoints();
+});
+
+$("body").on("click", ".bi-chevron-compact-down", function () {
+  let item = parseInt($(this).parent().parent().attr("class").substr(-1)) - 1;
+  if (item != routePointsCoordinates.length - 1) {
+    let nextItem = routePointsCoordinates[item + 1];
+    routePointsCoordinates[item + 1] = routePointsCoordinates[item];
+    routePointsCoordinates[item] = nextItem;
+
+    nextItem = routePointsFull[item + 1];
+    routePointsFull[item + 1] = routePointsFull[item];
+    routePointsFull[item] = nextItem;
+  }
+  showRoutePoints();
+});
+
+$("body").on("click", ".bi-x-lg", function () {
+  let item = parseInt($(this).parent().parent().attr("class").substr(-1)) - 1;
+  routePointsCoordinates.splice(item, 1);
+  routePointsFull.splice(item, 1);
+  if (routePointsCoordinates.length == 0) {
+    removeRoutePanel();
+  } else {
+    showRoutePoints();
+  }
+});
 
 //==================================
 //**********************************
@@ -317,7 +413,7 @@ function addPointToRoute() {
 
 function updateDataJSON() {
   //Тут шо то не так
-  ymaps
+  /*ymaps
     .geocode(newPlacemark.geometry.getCoordinates(), {
       json: true,
       results: 1,
@@ -330,7 +426,7 @@ function updateDataJSON() {
           address: geoObjectData.metaDataProperty.GeocoderMetaData.text,
         });
       }
-    });
+    });*/
 
   newPlacemark.properties.set({
     balloonContentHeader: $('#form input[name="name"]').val(),
@@ -346,10 +442,20 @@ function updateDataJSON() {
       averageTime: $('#form input[name="averageTime"]').val(),
       tags: $('#form select[name="place[]"]').val(),
     });
+    newPlacemark.options.set({
+      iconLayout: "default#image",
+      iconImageHref: "imgs/marker_red.png",
+      iconImageSize: [30, 45],
+    });
   } else {
     newPlacemark.properties.set({
       sum: $('#form input[name="sum"]').val(),
       tags: $('#form select[name="food[]"]').val(),
+    });
+    newPlacemark.options.set({
+      iconLayout: "default#image",
+      iconImageHref: "imgs/food.png",
+      iconImageSize: [40, 40],
     });
   }
 
@@ -384,6 +490,12 @@ function converPlacemark(placemark) {
       link: placemark.properties.get("link"),
       tags: placemark.properties.get("tags"),
     },
+    options: {
+      iconLayout: placemark.options.get("iconLayout"),
+      iconImageHref: placemark.options.get("iconImageHref"),
+      iconImageSize: placemark.options.get("iconImageSize"),
+      preset: placemark.options.get("preset"),
+    },
   };
 
   return obj;
@@ -392,6 +504,57 @@ function converPlacemark(placemark) {
 //========================
 //************************
 //========================
+
+//===========================
+//Функции скачивания маршрута
+//===========================
+
+function saveRoute() {
+  $("ul li").each(function () {
+    $(this).append("<textarea></textarea>");
+  });
+  $(".route-end textarea").remove();
+  $("#save-route").remove();
+  $("#buttons").append(
+    '<a id="download-route" onclick="downloadRoute()">Скачать маршрут</a>'
+  );
+}
+
+function downloadRoute() {
+  let i = 1;
+  let li = ".route-point-" + i;
+  let text = "";
+  routePointsFull.forEach((element) => {
+    text +=
+      i +
+      ") " +
+      element.properties.balloonContentHeader +
+      "\n" +
+      element.properties.address +
+      "\n" +
+      element.properties.close_time +
+      "Примечание: " +
+      $(li + " textarea").val() +
+      "\n\n\n";
+    i++;
+    li = ".route-point-" + i;
+  });
+
+  downloadAsFile(text);
+}
+
+function downloadAsFile(data) {
+  let a = document.createElement("a");
+  let file = new Blob([data], { type: "text/plain" });
+  a.href = URL.createObjectURL(file);
+  a.download = "Маршрут.txt";
+  a.click();
+  a.remove();
+}
+
+//==========================
+//**************************
+//==========================
 
 /*function makeBorder() {
   region = ymaps
