@@ -52,6 +52,10 @@ $("body").on("click", ".close-panel", function () {
   removeInfoPanel();
   removeRoutePanel();
 });
+$("body").on("click", ".close-autoriz", function () {
+  $('.form_autor_backgr').css('display', 'none');
+});
+
 
 function init() {
   //Создание карты

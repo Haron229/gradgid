@@ -36,7 +36,88 @@ font-family: 'Comfortaa', cursive;
 a{
   text-decoration: none;
 }
+.reg_btn{
+  display: flex;
+    position: absolute;
+    right: 25px;
+    top: 15px;
+    font-size: 18px;
+    color: #CE0040;
+}
 
+.autor_btn{
+  display: flex;
+    position: absolute;
+    right: 165px;
+    top: 15px;
+    font-size: 18px;
+    color: #CE0040;
+}
+
+.form_autor{
+  display: block;
+    position: fixed;
+    background: aliceblue;
+    top: 30%;
+    width: 500px;
+    height: max-content;
+    padding: 70px;
+    box-shadow: 0 0 60px -15px;
+}
+.form_autor_backgr{
+  display: none;
+    position: fixed;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background: #ffffffd1;
+    z-index: 99;
+}
+.form_autor_backgr .close-autoriz {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+  color: var(--color-gray);
+}
+
+.form_autor_backgr .close-autoriz:hover {
+  color: var(--color-text);
+}
+
+.form_autor_backgr  .close-autoriz {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: var(--color-light-blue);
+  color: white;
+  /* padding: 3px; */
+  font-size: 20px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .5s;
+}
+
+
+.form_autor_backgr h1 {
+color: #CE0040;
+text-align: center;
+font-weight: 300;
+
+ margin-top: 13px;
+}
+
+#login {
+width: 320px;
+margin: auto;
+padding-bottom: 15px;
+display: contents;
+}
 
 .carousel-inner{
   height: 30rem;
