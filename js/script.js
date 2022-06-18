@@ -133,3 +133,5 @@ function imagineParam(param) {
   console.log($('.tags.abs'));
   $('.tags.abs').show();
 }
+
+//открытие\закрытие формы авторизации

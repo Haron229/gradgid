@@ -7,7 +7,6 @@ var myMap,
   foodCollection,
   addPlacemarkButton,
   newPlacemark;
-
 var currentId;
 
 var region;
@@ -53,10 +52,10 @@ $("body").on("click", ".close-panel", function () {
   removeInfoPanel();
   removeRoutePanel();
 });
-
 $("body").on("click", ".close-autoriz", function () {
   $('.form_autor_backgr').css('display', 'none');
 });
+
 
 function init() {
   //Создание карты
@@ -141,7 +140,6 @@ function init() {
           draggable: true,
           iconLayout: "default#image",
           iconImageHref: "imgs/marker_blue.png",
-          iconImageSize: [30, 45],
         }
       );
       myMap.geoObjects.add(newPlacemark);
@@ -176,8 +174,21 @@ function init() {
 
       $("#main-map-content").append(routePanel);
 
-      showRoutePoints();
+      routePointsFull.forEach((element) => {
+        $(".push").append(
+          "<li><p>" +
+            element.properties.balloonContentHeader +
+            '</p><br /><i class="fas fa-map-marker"></i>' +
+            element.properties.address +
+            "<br />Открыто до " +
+            element.properties.close_time +
+            '<i class="fas fa-sort-asc"></i>' +
+            '<i class="fas fa-sort-desc"></i>' +
+            "</li>"
+        );
+      });
 
+      $(".push").append("<li><p>Конец маршрута.</p></li>");
       removeAddPlacemarkForm();
     } else {
       removeRoutePanel();
@@ -339,70 +350,6 @@ function addPointToRoute() {
   alert("Точка добавлена в маршрут.");
 }
 
-function showRoutePoints() {
-  $(".push").empty();
-
-  let i = 1;
-  routePointsFull.forEach((element) => {
-    $(".push").append(
-      "<li class='route-point-" +
-        i +
-        "'><p>" +
-        element.properties.balloonContentHeader +
-        '</p><br /><i class="fas fa-map-marker"></i>' +
-        element.properties.address +
-        "<br /><p>Открыто до " +
-        element.properties.close_time +
-        '</p><div><i class="bi bi-chevron-compact-up"></i>' +
-        '<i class="bi bi-chevron-compact-down"></i>' +
-        '<i class="bi bi-x-lg"></i></div>' +
-        "</li>"
-    );
-    i++;
-  });
-
-  $(".push").append("<li class='route-end'><p>Конец маршрута.</p></li>");
-}
-
-$("body").on("click", ".bi-chevron-compact-up", function () {
-  let item = parseInt($(this).parent().parent().attr("class").substr(-1)) - 1;
-  if (item != 0) {
-    let prevItem = routePointsCoordinates[item - 1];
-    routePointsCoordinates[item - 1] = routePointsCoordinates[item];
-    routePointsCoordinates[item] = prevItem;
-
-    prevItem = routePointsFull[item - 1];
-    routePointsFull[item - 1] = routePointsFull[item];
-    routePointsFull[item] = prevItem;
-  }
-  showRoutePoints();
-});
-
-$("body").on("click", ".bi-chevron-compact-down", function () {
-  let item = parseInt($(this).parent().parent().attr("class").substr(-1)) - 1;
-  if (item != routePointsCoordinates.length - 1) {
-    let nextItem = routePointsCoordinates[item + 1];
-    routePointsCoordinates[item + 1] = routePointsCoordinates[item];
-    routePointsCoordinates[item] = nextItem;
-
-    nextItem = routePointsFull[item + 1];
-    routePointsFull[item + 1] = routePointsFull[item];
-    routePointsFull[item] = nextItem;
-  }
-  showRoutePoints();
-});
-
-$("body").on("click", ".bi-x-lg", function () {
-  let item = parseInt($(this).parent().parent().attr("class").substr(-1)) - 1;
-  routePointsCoordinates.splice(item, 1);
-  routePointsFull.splice(item, 1);
-  if (routePointsCoordinates.length == 0) {
-    removeRoutePanel();
-  } else {
-    showRoutePoints();
-  }
-});
-
 //==================================
 //**********************************
 //==================================
@@ -445,7 +392,6 @@ function updateDataJSON() {
     newPlacemark.options.set({
       iconLayout: "default#image",
       iconImageHref: "imgs/marker_red.png",
-      iconImageSize: [30, 45],
     });
   } else {
     newPlacemark.properties.set({
@@ -455,7 +401,6 @@ function updateDataJSON() {
     newPlacemark.options.set({
       iconLayout: "default#image",
       iconImageHref: "imgs/food.png",
-      iconImageSize: [40, 40],
     });
   }
 
@@ -493,7 +438,6 @@ function converPlacemark(placemark) {
     options: {
       iconLayout: placemark.options.get("iconLayout"),
       iconImageHref: placemark.options.get("iconImageHref"),
-      iconImageSize: placemark.options.get("iconImageSize"),
       preset: placemark.options.get("preset"),
     },
   };
@@ -504,57 +448,6 @@ function converPlacemark(placemark) {
 //========================
 //************************
 //========================
-
-//===========================
-//Функции скачивания маршрута
-//===========================
-
-function saveRoute() {
-  $("ul li").each(function () {
-    $(this).append("<textarea></textarea>");
-  });
-  $(".route-end textarea").remove();
-  $("#save-route").remove();
-  $("#buttons").append(
-    '<a id="download-route" onclick="downloadRoute()">Скачать маршрут</a>'
-  );
-}
-
-function downloadRoute() {
-  let i = 1;
-  let li = ".route-point-" + i;
-  let text = "";
-  routePointsFull.forEach((element) => {
-    text +=
-      i +
-      ") " +
-      element.properties.balloonContentHeader +
-      "\n" +
-      element.properties.address +
-      "\n" +
-      element.properties.close_time +
-      "Примечание: " +
-      $(li + " textarea").val() +
-      "\n\n\n";
-    i++;
-    li = ".route-point-" + i;
-  });
-
-  downloadAsFile(text);
-}
-
-function downloadAsFile(data) {
-  let a = document.createElement("a");
-  let file = new Blob([data], { type: "text/plain" });
-  a.href = URL.createObjectURL(file);
-  a.download = "Маршрут.txt";
-  a.click();
-  a.remove();
-}
-
-//==========================
-//**************************
-//==========================
 
 /*function makeBorder() {
   region = ymaps
