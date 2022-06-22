@@ -21,7 +21,8 @@ var multiRoute,
 var addPlacemarkForm,
   infoPanel,
   routePanel,
-  isPlace = true;
+  isPlace = true,
+  resetBuffer = false;
 
 $.ajax({
   url: "add_placemark_form.html",
@@ -55,7 +56,7 @@ $("body").on("click", ".close-panel", function () {
 });
 
 $("body").on("click", ".close-autoriz", function () {
-  $('.form_autor_backgr').css('display', 'none');
+  $(".form_autor_backgr").css("display", "none");
 });
 
 function init() {
@@ -87,6 +88,75 @@ function init() {
     gridSize: 64,
     preset: "islands#redClusterIcons",
   });
+
+  //===========
+  //Фильтрация
+  //===========
+
+  var listBoxItems = [
+      "Памятники",
+      "Парки",
+      "Театры",
+      "Магазины",
+      "Учебные заведения",
+      "Кафе",
+      "Рестораны",
+      "Столовые",
+      "Кофейни",
+      "Кондитерские ",
+    ].map(function (title) {
+      return new ymaps.control.ListBoxItem({
+        data: {
+          content: title,
+        },
+        state: {
+          selected: true,
+        },
+      });
+    }),
+    reducer = function (filters, filter) {
+      filters[filter.data.get("content")] = filter.isSelected();
+      return filters;
+    },
+    // Теперь создадим список, содержащий 5 пунктов.
+    listBoxControl = new ymaps.control.ListBox({
+      data: {
+        content: "Фильтр",
+        title: "Фильтр",
+      },
+      items: listBoxItems,
+      state: {
+        // Признак, развернут ли список.
+        expanded: false,
+        filters: listBoxItems.reduce(reducer, {}),
+      },
+    });
+  myMap.controls.add(listBoxControl, { float: "left", floatIndex: 1000 });
+
+  // Добавим отслеживание изменения признака, выбран ли пункт списка.
+  listBoxControl.events.add(["select", "deselect"], function (e) {
+    var listBoxItem = e.get("target");
+    var filters = ymaps.util.extend({}, listBoxControl.state.get("filters"));
+    filters[listBoxItem.data.get("content")] = listBoxItem.isSelected();
+    listBoxControl.state.set("filters", filters);
+  });
+
+  var filterMonitor = new ymaps.Monitor(listBoxControl.state);
+  filterMonitor.add("filters", function (filters) {
+    // Применим фильтр.
+    objectManager.setFilter(getFilterFunction(filters));
+  });
+
+  function getFilterFunction(categories) {
+    return function (obj) {
+      var content = obj.properties.tags;
+      return categories[content];
+    };
+  }
+
+  //============================================
+  //********************************************
+  //============================================
 
   //Создание отдельных коллекций для мест
   placesCollection = new ymaps.GeoObjectCollection(null, {
@@ -142,6 +212,7 @@ function init() {
           iconLayout: "default#image",
           iconImageHref: "imgs/marker_blue.png",
           iconImageSize: [30, 45],
+          iconImageOffset: [-15, 0],
         }
       );
       myMap.geoObjects.add(newPlacemark);
@@ -195,6 +266,46 @@ function init() {
   objectManager.objects.events.add("click", function (e) {
     var id = e.get("objectId"),
       geoObject = objectManager.objects.getById(id);
+
+    removeInfoPanel();
+
+    openPoint = geoObject;
+
+    $("#main-map-content").append(infoPanel);
+
+    $(".title-panel").append(geoObject.properties.balloonContentHeader);
+    $(".address-panel").append(geoObject.properties.address);
+    $(".hashtag-panel").append(
+      "<span><a>" + geoObject.properties.tags + "<a></span>"
+    );
+    $(".description-panel").append(
+      "<span><a>" + geoObject.properties.balloonContentBody + "<a></span>"
+    );
+    $(".open-time-panel").append(
+      "<span><b>Время работы: </b>" +
+        geoObject.properties.open_time +
+        "-" +
+        geoObject.properties.close_time +
+        "</span>"
+    );
+    $(".linkToSite-panel").append(
+      '<span><a href="' +
+        geoObject.properties.link +
+        '">Ссылка на сайт</a></span>'
+    );
+
+    if (geoObject.properties.sum) {
+      $(".average-panel").append(
+        "<span><b>Средний чек: </b>" + geoObject.properties.sum + "</span>"
+      );
+    }
+  });
+
+  objectBuffer.objects.events.add("click", function (e) {
+    resetBuffer = true;
+
+    var id = e.get("objectId"),
+      geoObject = objectBuffer.objects.getById(id);
 
     removeInfoPanel();
 
@@ -315,6 +426,8 @@ function removeRoutePanel() {
 //===========================
 
 function showMultiRoute() {
+  myMap.geoObjects.remove(multiRoute);
+
   multiRoute = new ymaps.multiRouter.MultiRoute(
     {
       referencePoints: routePointsCoordinates,
@@ -328,9 +441,88 @@ function showMultiRoute() {
   myMap.geoObjects.add(multiRoute);
 
   //Нужна проверка на кафешки, чтобы предложить покушац
+
+  let foodPlaces, fullTime;
+  routePointsFull.forEach((element) => {
+    if (element.properties.averageTime) {
+      fullTime += parseInt(element.properties.averageTime);
+    } else {
+      fullTime = 0;
+    }
+  });
+
+  if (fullTime >= 2) {
+    if (
+      confirm(
+        "Ваш маршрут займет более " +
+          fullTime +
+          " часов. Выберем место, чтобы перекусить?"
+      )
+    ) {
+      showNearFoodPlaces();
+    }
+  }
+}
+
+function clearMultiRoute() {
+  myMap.geoObjects.remove(multiRoute);
+  routePointsCoordinates = [];
+  routePointsFull = [];
+  removeRoutePanel();
+}
+
+function showNearFoodPlaces() {
+  var nearFoodPlaces = [];
+
+  routePointsFull.forEach((element) => {
+    var circle = new ymaps.Circle(
+      [element.geometry.coordinates, 300],
+      {},
+      {
+        fill: false,
+        outline: false,
+      }
+    );
+
+    myMap.geoObjects.add(circle);
+
+    let objects = ymaps.geoQuery(objectManager.objects).searchInside(circle);
+
+    objects.each(function (e) {
+      if (e.properties.get("sum"))
+        if (!routePointsCoordinates.includes(e.geometry.getCoordinates())) {
+          nearFoodPlaces.push(e);
+
+          objectManager.objects.each(function (object) {
+            if (object.geometry.coordinates == e.geometry.getCoordinates())
+              objectBuffer.add(object);
+          });
+        }
+    });
+  });
+
+  myMap.geoObjects.remove(objectManager);
+  objectBuffer.add(routePointsFull);
+  myMap.geoObjects.add(objectBuffer);
+
+  myMap.geoObjects.each(function (object) {
+    object.options.set({ hasBalloon: false });
+  });
 }
 
 function addPointToRoute() {
+  if (resetBuffer) {
+    objectBuffer.removeAll();
+    myMap.geoObjects.remove(objectBuffer);
+    myMap.geoObjects.add(objectManager);
+    routePointsFull.push(openPoint);
+    routePointsCoordinates.push(openPoint.geometry.coordinates);
+    removeInfoPanel();
+    showMultiRoute();
+    showRoutePoints();
+    return;
+  }
+
   if (openPoint != null) {
     routePointsFull.push(openPoint);
     routePointsCoordinates.push(openPoint.geometry.coordinates);
@@ -376,6 +568,7 @@ $("body").on("click", ".bi-chevron-compact-up", function () {
     routePointsFull[item] = prevItem;
   }
   showRoutePoints();
+  showMultiRoute();
 });
 
 $("body").on("click", ".bi-chevron-compact-down", function () {
@@ -390,6 +583,7 @@ $("body").on("click", ".bi-chevron-compact-down", function () {
     routePointsFull[item] = nextItem;
   }
   showRoutePoints();
+  showMultiRoute();
 });
 
 $("body").on("click", ".bi-x-lg", function () {
@@ -446,6 +640,7 @@ function updateDataJSON() {
       iconLayout: "default#image",
       iconImageHref: "imgs/marker_red.png",
       iconImageSize: [30, 45],
+      iconImageOffset: [-15, -45],
     });
   } else {
     newPlacemark.properties.set({
@@ -456,6 +651,7 @@ function updateDataJSON() {
       iconLayout: "default#image",
       iconImageHref: "imgs/food.png",
       iconImageSize: [40, 40],
+      iconImageOffset: [-20, -20],
     });
   }
 
@@ -494,6 +690,7 @@ function converPlacemark(placemark) {
       iconLayout: placemark.options.get("iconLayout"),
       iconImageHref: placemark.options.get("iconImageHref"),
       iconImageSize: placemark.options.get("iconImageSize"),
+      iconImageOffset: placemark.options.get("iconImageOffset"),
       preset: placemark.options.get("preset"),
     },
   };
@@ -555,65 +752,3 @@ function downloadAsFile(data) {
 //==========================
 //**************************
 //==========================
-
-/*function makeBorder() {
-  region = ymaps
-    .geoQuery(
-      ymaps.borders.load("RU", {
-        lang: "ru",
-      })
-    )
-    .search('properties.hintContent = "Саратовская область"')
-    .setOptions({
-      fillOpacity: "0.4",
-      fillColor: "#B2E3FC",
-      strokeColor: "#0084CE",
-    });
-
-  region.addToMap(myMap);
-}
-
-function showPath() {
-  multiRoute = new ymaps.multiRouter.MultiRoute(
-    {
-      // Точки маршрута. Точки могут быть заданы как координатами, так и адресом.
-      referencePoints: [
-        [places[2].latitude, places[2].longitude],
-        [places[4].latitude, places[4].longitude],
-        [places[1].latitude, places[1].longitude],
-        [places[3].latitude, places[3].longitude],
-      ],
-    },
-    {
-      // Внешний вид путевых точек.
-      wayPointStartIconColor: "#FFFFFF",
-      wayPointStartIconFillColor: "#CE0040",
-      // Внешний вид линии активного маршрута.
-      routeActiveStrokeWidth: 5,
-      routeActiveStrokeStyle: "solid",
-      routeActiveStrokeColor: "0084CE",
-      // Внешний вид линий альтернативных маршрутов.
-      routeStrokeStyle: "dot",
-      routeStrokeWidth: 3,
-      boundsAutoApply: true,
-    }
-  );
-
-  // Добавление маршрута на карту.
-  myMap.geoObjects.add(multiRoute);
-
-  $("div.editRout").show();
-}
-
-function changeRout(newrout, elem) {
-  $(".rout span").removeClass("selected");
-  $(elem).addClass("selected");
-  multiRoute.model.setParams({
-    routingMode: newrout,
-  });
-}
-
-function closeRout() {
-  $("div.editRout").hide();
-  myMap.geoObjects.remove(multiRoute);
-}*/
