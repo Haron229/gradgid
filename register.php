@@ -42,7 +42,7 @@
 			{
 				$sql="INSERT INTO users
 				(full_name, email, password)
-				VALUES('$full_name','$email', '$password')";
+				VALUES('$full_name','$email','$password')";
 				$result=mysqli_query($con , $sql);
 				if($result){
 					$message = "Account Successfully Created";
