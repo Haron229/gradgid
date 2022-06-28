@@ -273,6 +273,8 @@ function init() {
 
     $("#main-map-content").append(infoPanel);
 
+    $("#img_").attr("src", "imgs/" + geoObject.properties.image);
+
     $(".title-panel").append(geoObject.properties.balloonContentHeader);
     $(".address-panel").append(geoObject.properties.address);
     $(".hashtag-panel").append(
@@ -312,6 +314,8 @@ function init() {
     openPoint = geoObject;
 
     $("#main-map-content").append(infoPanel);
+
+    $("#img_").attr("src", "imgs/" + geoObject.properties.image);
 
     $(".title-panel").append(geoObject.properties.balloonContentHeader);
     $(".address-panel").append(geoObject.properties.address);
@@ -439,8 +443,6 @@ function showMultiRoute() {
   );
 
   myMap.geoObjects.add(multiRoute);
-
-  //Нужна проверка на кафешки, чтобы предложить покушац
 
   let foodPlaces, fullTime;
   routePointsFull.forEach((element) => {
@@ -606,7 +608,6 @@ $("body").on("click", ".bi-x-lg", function () {
 //========================
 
 function updateDataJSON() {
-  //Тут шо то не так
   /*ymaps
     .geocode(newPlacemark.geometry.getCoordinates(), {
       json: true,
@@ -629,6 +630,7 @@ function updateDataJSON() {
     open_time: $('#form input[name="open-time"]').val(),
     close_time: $('#form input[name="close-time"]').val(),
     link: $('#form input[name="link"]').val(),
+    image: $("#foto")[0].value.split("\\").pop(),
   });
 
   if (isPlace) {
@@ -663,8 +665,6 @@ function updateDataJSON() {
     data: { newData: data, fileName: "json/data.json" },
     success: loadPlacemarks(),
   });
-
-  return false;
 }
 
 function converPlacemark(placemark) {
@@ -685,6 +685,7 @@ function converPlacemark(placemark) {
       sum: placemark.properties.get("sum"),
       link: placemark.properties.get("link"),
       tags: placemark.properties.get("tags"),
+      image: placemark.properties.get("image"),
     },
     options: {
       iconLayout: placemark.options.get("iconLayout"),
@@ -697,6 +698,18 @@ function converPlacemark(placemark) {
 
   return obj;
 }
+
+/*$("#form").on("submit", function (e) {
+  e.preventDefault();
+
+  $.ajax({
+    url: "upload_image.php",
+    type: "POST",
+    data: new FormData(this),
+    contentType: false,
+    processData: false,
+  });
+});*/
 
 //========================
 //************************
